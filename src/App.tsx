@@ -1,9 +1,13 @@
 import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (
     <>
-      <div className="text-gray-800 text-[100px]">Hello</div>
+      <Router>
+        <Navbar />
+      </Router>
     </>
   );
 }

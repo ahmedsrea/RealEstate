@@ -8,6 +8,10 @@ body {
   font-family: "Nunito Sans", sans-serif;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 .img-clip {
   position: absolute;
   top: 50%;

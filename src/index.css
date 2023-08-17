@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .filter-select {
+    @apply p-2 my-3 rounded-md bg-[#FAFBFC] border border-[#ddd] hover:border-[#6C7072] transition duration-300 focus:shadow-[0_0_0_0.2rem_rgba(0,123,255,.25)] focus:border-none focus:outline-none;
+  }
+}
+
 body {
   font-family: "Nunito Sans", sans-serif;
 }

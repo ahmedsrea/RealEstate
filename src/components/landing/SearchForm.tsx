@@ -1,4 +1,4 @@
-import { category, location, budget } from "../../assests/constants";
+import { projectType, location, budget } from "../../assests/constants";
 
 const SearchForm = () => {
   return (
@@ -8,7 +8,7 @@ const SearchForm = () => {
         <div className="flex flex-col md:flex-row gap-5 mb-7">
           <select name="category" className="p-2 rounded-md">
             <option value="">Select</option>
-            {category.map((category, index) => (
+            {projectType.map((category, index) => (
               <option value={category.value} key={index}>
                 {category.title}
               </option>

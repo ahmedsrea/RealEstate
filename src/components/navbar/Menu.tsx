@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   return (
     <div className="xl:flex flex-row items-center text-[#2D3436] gap-[21px] font-medium text-base hidden ">
-      <Link to="" className="hover:text-[#019DFB]">
+      <Link to="/compounds" className="hover:text-[#019DFB]">
         Egypt's Compounds
       </Link>
       <Link to="" className="hover:text-[#019DFB]">

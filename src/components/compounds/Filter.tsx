@@ -12,8 +12,8 @@ const Filter = () => {
   return (
     <div className="block max-w-[320px] p-4 border border-[#dddddd] rounded-lg">
       <form method="" action="" className="flex flex-col">
-        <label htmlFor="">Location</label>
-        <select name="location" className="filter-select">
+        <label htmlFor="location">Location</label>
+        <select name="location" id="location" className="filter-select">
           <option value="">Show all</option>
           {location.map((location, index) => (
             <option value={location.value} key={index}>
@@ -21,8 +21,8 @@ const Filter = () => {
             </option>
           ))}
         </select>
-        <label htmlFor="">Project Type</label>
-        <select name="project_type" className="filter-select">
+        <label htmlFor="project-type">Project Type</label>
+        <select name="project_type" id="project-type" className="filter-select">
           <option value="">Show all</option>
           {projectType.map((type, index) => (
             <option value={type.value} key={index}>
@@ -30,8 +30,12 @@ const Filter = () => {
             </option>
           ))}
         </select>
-        <label htmlFor="">Property Type</label>
-        <select name="property_type" className="filter-select">
+        <label htmlFor="property-type">Property Type</label>
+        <select
+          name="property_type"
+          id="property-type"
+          className="filter-select"
+        >
           <option value="">Show all</option>
           {propertyType.map((type, index) => (
             <option value={type.value} key={index}>
@@ -39,8 +43,8 @@ const Filter = () => {
             </option>
           ))}
         </select>
-        <label htmlFor="">Developer</label>
-        <select name="developer" className="filter-select">
+        <label htmlFor="dev">Developer</label>
+        <select name="developer" id="dev" className="filter-select">
           <option value="">Show all</option>
           {developer.map((dev, index) => (
             <option value={dev.value} key={index}>
@@ -48,8 +52,8 @@ const Filter = () => {
             </option>
           ))}
         </select>
-        <label htmlFor="">View</label>
-        <select name="view" className="filter-select">
+        <label htmlFor="view">View</label>
+        <select name="view" id="view" className="filter-select">
           <option value="">Show all</option>
           {view.map((view, index) => (
             <option value={view.value} key={index}>
@@ -57,9 +61,9 @@ const Filter = () => {
             </option>
           ))}
         </select>
-        <label htmlFor="">Area</label>
+        <label htmlFor="area">Area</label>
         <div className="flex flex-row gap-3">
-          <select name="area_start" id="" className="filter-select flex-1">
+          <select name="area_start" id="area" className="filter-select flex-1">
             <option value="">Min</option>
             {area.map((area, index) => (
               <option value={area.value} key={index}>
@@ -76,9 +80,13 @@ const Filter = () => {
             ))}
           </select>
         </div>
-        <label htmlFor="">Price</label>
+        <label htmlFor="price">Price</label>
         <div className="flex flex-row gap-3">
-          <select name="price_start" id="" className="filter-select flex-1">
+          <select
+            name="price_start"
+            id="price"
+            className="filter-select flex-1"
+          >
             <option value="">Min</option>
             {price.map((price, index) => (
               <option value={price.value} key={index}>

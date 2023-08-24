@@ -130,3 +130,46 @@ export const area = [
   { title: 400, value: 400 },
   { title: 500, value: 500 },
 ];
+
+export const featLocations = [
+  {
+    title: "North Coast",
+    proj: "111 Projects",
+    bg: "/assests/featLocations/north_coast.jpg",
+  },
+  {
+    title: "New Administrative Capital",
+    proj: "493 Projects",
+    bg: "/assests/featLocations/new_admin.jpg",
+  },
+  {
+    title: "New Cairo",
+    proj: "354 Projects",
+    bg: "/assests/featLocations/new_cairo.jpg",
+  },
+  {
+    title: "Mosktabal City",
+    proj: "46 Projects",
+    bg: "/assests/featLocations/mostakbal_city.jpg",
+  },
+  {
+    title: "Shorouk City",
+    proj: "21 Projects",
+    bg: "/assests/featLocations/shor_city.jpg",
+  },
+  {
+    title: "6th October",
+    proj: "86 Projects",
+    bg: "/assests/featLocations/6th_oct.jpg",
+  },
+  {
+    title: "Sheikh Zayed",
+    proj: "65 Projects",
+    bg: "/assests/featLocations/sheikh_zayed.jpg",
+  },
+  {
+    title: "Al Ain Al Sokhna",
+    proj: "62 Projects",
+    bg: "/assests/featLocations/al_ain.jpg",
+  },
+];

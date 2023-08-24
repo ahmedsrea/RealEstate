@@ -7,8 +7,9 @@ const FeaLocations = () => {
       className="flex flex-col items-center my-12 xl:max-w-[1400px] w-full
     py-[14px] px-[15px] mx-auto"
     >
-      <h1 className="md:text-3xl text-2xl mb-12 text-black font-bold">
+      <h1 className="md:text-3xl text-2xl mb-16 text-black font-bold relative">
         Featured Locations
+        <span className="under-line"></span>
       </h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
         {featLocations.map((data) => (

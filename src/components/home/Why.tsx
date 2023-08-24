@@ -1,7 +1,10 @@
 const Why = () => {
   return (
     <div className="bg-[#019DFB] w-full text-white text-center flex flex-col items-center justify-center py-12">
-      <h1 className="text-3xl font-bold mb-8">Why Real Estate Egypt?</h1>
+      <h1 className="text-3xl font-bold mb-16 relative">
+        Why Real Estate Egypt?
+        <span className="under-line"></span>
+      </h1>
       <div className="xl:max-w-[1110px] lg:max-w-[930px] md:max-w-[690px] sm:max-w-[510px] px-5 w-full flex flex-col gap-10 leading-7 text-base">
         <p>
           Real Estate Egypt website has been established to provide all the

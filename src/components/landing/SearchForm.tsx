@@ -2,7 +2,7 @@ import { projectType, location, budget } from "../../assests/constants";
 
 const SearchForm = () => {
   return (
-    <div className="bg-black/60 p-7 rounded-lg w-full sm:w-[80%] md:w-fit">
+    <div className="bg-black/60 p-7 rounded-lg w-full sm:w-[80%] md:w-fit z-10">
       <p className="text-sm text-[#CCCCCC] text-left mb-1">All Developments</p>
       <form method="POST" action="/search">
         <div className="flex flex-col md:flex-row gap-5 mb-7">

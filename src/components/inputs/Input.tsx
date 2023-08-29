@@ -7,6 +7,8 @@ interface InputProps {
   value?: string;
   accept?: string;
   multiple?: boolean;
+  htmlFor?: string;
+  label?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,18 +20,23 @@ const Input: React.FC<InputProps> = ({
   value,
   accept,
   multiple,
+  htmlFor,
+  label,
 }) => {
   return (
-    <input
-      type={type}
-      name={name}
-      id={id}
-      required={required}
-      onChange={onChange}
-      value={value}
-      accept={accept}
-      multiple={multiple}
-    />
+    <div className="flex flex-col">
+      <label htmlFor={htmlFor}>{label}</label>
+      <input
+        type={type}
+        name={name}
+        id={id}
+        required={required}
+        onChange={onChange}
+        value={value}
+        accept={accept}
+        multiple={multiple}
+      />
+    </div>
   );
 };
 

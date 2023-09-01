@@ -6,7 +6,7 @@ const Menu = () => {
       <Link to="/compounds" className="hover:text-[#019DFB]">
         Egypt's Compounds
       </Link>
-      <Link to="" className="hover:text-[#019DFB]">
+      <Link to="blog" className="hover:text-[#019DFB]">
         Blog
       </Link>
       <Link to="/for-sale" className="hover:text-[#019DFB]">

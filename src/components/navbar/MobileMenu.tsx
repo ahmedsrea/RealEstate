@@ -13,10 +13,10 @@ const MobileMenu = () => {
         <div
           className={`flex flex-col items-start p-6 text-[#2D3436] gap-[21px] font-medium text-base absolute top-[65px] left-0 bg-[#F2F2F2] w-[100vw] z-20 openMenu`}
         >
-          <Link to="" className="hover:text-[#019DFB]">
+          <Link to="compounds" className="hover:text-[#019DFB]">
             Egypt's Compounds
           </Link>
-          <Link to="" className="hover:text-[#019DFB]">
+          <Link to="blog" className="hover:text-[#019DFB]">
             Blog
           </Link>
           <Link to="" className="hover:text-[#019DFB]">

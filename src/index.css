@@ -28,11 +28,14 @@ input[type="search"]::-webkit-search-cancel-button {
   height: auto;
 }
 
-@keyframes openMenu {
-  0% {
-    height: 0;
-  }
-  100% {
-    min-height: 300px;
-  }
+.under-line {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  height: 4px;
+  width: 60px;
+  border-radius: 8px;
+  background-color: #fb6b01;
+  transform: translate(-50%, -50%);
 }

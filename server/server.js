@@ -3,21 +3,20 @@ const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
-const CompoundsModel = require("./compounds");
+const CompoundsModel = require("./models/compounds");
 const app = express();
+const blogsRouter = require("./routes/blogs");
 
 app.use(cors()); // fuck you
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use("/uploads", express.static("uploads"));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../src/assests/images");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
+    // const uniqueSuffix = Date.now();
     // cb(null, uniqueSuffix + "_" + file.originalname);
     cb(null, file.originalname);
   },
@@ -67,5 +66,7 @@ app.post("/item-request", upload.array("images[]"), async (req, res, next) => {
     res.json({ status: error });
   }
 });
+
+app.use("/blogs", blogsRouter);
 
 app.listen(3000);

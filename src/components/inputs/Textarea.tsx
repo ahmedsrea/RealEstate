@@ -4,6 +4,7 @@ interface TextareaProps {
   value: string;
   htmlFor?: string;
   label?: string;
+  rows?: number;
   onChange: (e: any) => void;
 }
 const Textarea: React.FC<TextareaProps> = ({
@@ -12,6 +13,7 @@ const Textarea: React.FC<TextareaProps> = ({
   value,
   htmlFor,
   label,
+  rows = 4,
   onChange,
 }) => {
   return (
@@ -27,7 +29,7 @@ const Textarea: React.FC<TextareaProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        rows={4}
+        rows={rows}
         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Write your thoughts here..."
       ></textarea>

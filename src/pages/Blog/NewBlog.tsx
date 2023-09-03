@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import Input from "../../components/inputs/Input";
+import Textarea from "../../components/inputs/Textarea";
 
 const NewBlog = () => {
   const url = "http://localhost:3000/blogs";
@@ -44,51 +46,47 @@ const NewBlog = () => {
   return (
     <div className="xl:max-w-[1400px] w-full mx-auto flex flex-col items-center py-[14px] px-[15px]">
       New Blog
-      <form className="w-full" onSubmit={(e) => submit(e)}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            onChange={(e) => handle(e)}
-            value={data.title}
-            className="border border-gray-400 w-full"
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            name="description"
-            id="description"
-            rows={10}
-            onChange={(e) => handle(e)}
-            value={data.description}
-            className="border border-gray-400 w-full"
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="markdown">Markdown</label>
-          <textarea
-            name="markdown"
-            id="markdown"
-            rows={10}
-            onChange={(e) => handle(e)}
-            value={data.markdown}
-            className="border border-gray-400 w-full"
-          ></textarea>
-        </div>
-        <input
+      <form className="flex flex-col w-full" onSubmit={(e) => submit(e)}>
+        <Input
+          label="Title"
+          htmlFor="title"
+          type="text"
+          name="title"
+          id="title"
+          onChange={(e) => handle(e)}
+          value={data.title}
+        />
+        <Textarea
+          label="Description"
+          htmlFor="description"
+          name="description"
+          id="description"
+          rows={4}
+          onChange={(e) => handle(e)}
+          value={data.description}
+        />
+        <Textarea
+          label="Markdown"
+          htmlFor="markdown"
+          name="markdown"
+          id="markdown"
+          rows={8}
+          onChange={(e) => handle(e)}
+          value={data.markdown}
+        />
+        <Input
+          label="Images"
+          htmlFor="images"
           type="file"
           name="images"
           id="images"
           onChange={handleImages}
           accept="images/*"
+          multiple
         />
-
         <button
           type="submit"
-          className="bg-[#FB6B01] text-white p-2 rounded-md"
+          className="bg-[#FB6B01] text-white py-2 px-6  rounded-md w-fit"
         >
           Submit
         </button>

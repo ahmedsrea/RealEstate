@@ -1,5 +1,5 @@
 import Why from "./Why";
-import Landing from "../landing/Landing";
+import Landing from "./Landing";
 import FeaLocations from "./FeaLocations";
 
 const Home = () => {

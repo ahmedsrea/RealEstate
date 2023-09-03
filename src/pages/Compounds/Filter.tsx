@@ -6,7 +6,7 @@ import {
   view,
   area,
   price,
-} from "../../assests/constants";
+} from "../../data/constants";
 
 const Filter = () => {
   return (

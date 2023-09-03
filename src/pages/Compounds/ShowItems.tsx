@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { FaAnglesRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import ShowProp from "../card";
+import ShowProp from "../../components/card";
+import { getCompounds } from "../../lib/axios";
 
 const ShowItems = () => {
-  const url = "http://localhost:3000/get-compounds";
   const [comps, setComps] = useState<any[]>([]);
 
   useEffect(() => {
-    axios
-      .get(url)
-      .then((comps) => setComps(comps.data))
+    getCompounds()
+      .then((data) => setComps(data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [comps]);
   return (
     <div className="max-w-[1018px] w-full p-4 border border-[#dddddd] rounded-lg">
       <p className="flex flex-row items-center gap-2 text-base mb-7">
@@ -30,11 +28,11 @@ const ShowItems = () => {
         Compounds - 1020 compounds and 30810 properties for sale.
       </h1>
       <div className="mt-6 border-t border-gray-500 pt-4 grid lg:grid-cols-2 grid-cols-1 gap-7">
-        {comps.map(({ title, dev_by, price, images, slug }, index) => {
+        {comps.map(({ title, dev_by, price, images, slug, _id }) => {
           const image = images?.split(",");
           return (
             <ShowProp
-              key={index}
+              key={_id}
               title={title}
               dev_by={dev_by}
               price={price}

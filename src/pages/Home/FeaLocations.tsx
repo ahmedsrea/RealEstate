@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { featLocations } from "../../assests/constants";
+import { featLocations } from "../../data/constants";
 
 const FeaLocations = () => {
   return (

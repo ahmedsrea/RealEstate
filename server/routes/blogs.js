@@ -15,10 +15,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get("/", (req, res) => {
-  Blogs.find()
+router.get("/", async (req, res) => {
+  await Blogs.find()
     .then((blog) => res.json(blog))
     .catch((err) => res.json(err));
+});
+
+router.get("/:slug", async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const data = await Blogs.findOne({ slug });
+    if (!data) {
+      return res.status(404).json({ error: "Resource not found" });
+    }
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/", upload.array("images[]"), async (req, res) => {
@@ -30,7 +43,12 @@ router.post("/", upload.array("images[]"), async (req, res) => {
     path = path.substring(0, path.lastIndexOf(","));
   }
   let blog = {
+    blog_title: req.body.blog_title,
     title: req.body.title,
+    price: req.body.price,
+    status: req.body.status,
+    del_date: req.body.del_date,
+    dev_by: req.body.dev_by,
     description: req.body.description,
     markdown: req.body.markdown,
     images: path,

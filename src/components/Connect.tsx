@@ -36,7 +36,7 @@ const Connect = () => {
       </div>
 
       {/* Stick one */}
-      <div className="fixed bottom-0 left-0 h-[65px] bg-white w-full flex flex-row justify-around">
+      <div className="fixed bottom-0 left-0 h-[65px] bg-white w-full lg:hidden flex flex-row justify-around">
         <div className="flex flex-col items-center justify-center gap-2 text-[#019DFB] cursor-pointer">
           <FaHeadset /> <span className="text-xs">Request call</span>
         </div>

@@ -3,7 +3,7 @@ interface InputProps {
   id: string;
   htmlFor: string;
   label: string;
-  value: string;
+  value: boolean | string;
   onChange: (e: any) => void;
 }
 

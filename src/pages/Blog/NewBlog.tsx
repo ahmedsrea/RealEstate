@@ -5,7 +5,7 @@ import Textarea from "../../components/inputs/Textarea";
 
 const NewBlog = () => {
   const url = "http://localhost:3000/blogs";
-  const [data, setData] = useState({
+  const [data, setData] = useState<any>({
     blog_title: "",
     title: "",
     location: "",

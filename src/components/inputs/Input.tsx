@@ -3,12 +3,13 @@ interface InputProps {
   type: string;
   name: string;
   required?: boolean;
-  onChange: (e: any) => void;
+  onChange?: (e: any) => void;
   value?: string;
   accept?: string;
   multiple?: boolean;
   htmlFor?: string;
   label?: string;
+  placeholder?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -22,15 +23,18 @@ const Input: React.FC<InputProps> = ({
   multiple,
   htmlFor,
   label,
+  placeholder,
 }) => {
   return (
     <div className="flex flex-col mb-4">
-      <label
-        htmlFor={htmlFor}
-        className="block mb-2 text-base font-medium text-gray-900"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={htmlFor}
+          className="block mb-2 text-base font-medium text-gray-900"
+        >
+          {label}
+        </label>
+      )}
       <input
         type={type}
         name={name}
@@ -38,6 +42,7 @@ const Input: React.FC<InputProps> = ({
         required={required}
         onChange={onChange}
         value={value}
+        placeholder={placeholder}
         accept={accept}
         multiple={multiple}
         className={`${

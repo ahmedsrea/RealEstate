@@ -1,3 +1,4 @@
+import Select from "../../components/inputs/Select";
 import { projectType, location, budget } from "../../data/constants";
 
 const SearchForm = () => {
@@ -6,30 +7,9 @@ const SearchForm = () => {
       <p className="text-sm text-[#CCCCCC] text-left mb-1">All Developments</p>
       <form method="POST" action="/search">
         <div className="flex flex-col md:flex-row gap-5 mb-7">
-          <select name="category" className="p-2 rounded-md">
-            <option value="">Select</option>
-            {projectType.map((category, index) => (
-              <option value={category.value} key={index}>
-                {category.title}
-              </option>
-            ))}
-          </select>
-          <select name="location" className="p-2 rounded-md">
-            <option value="">Select</option>
-            {location.map((location, index) => (
-              <option value={location.value} key={index}>
-                {location.title}
-              </option>
-            ))}
-          </select>
-          <select name="budget" className="p-2 rounded-md">
-            <option value="">Select</option>
-            {budget.map((budget, index) => (
-              <option value={budget.value} key={index}>
-                {budget.title}
-              </option>
-            ))}
-          </select>
+          <Select data={projectType} name="proj_type" id="proj_type" />
+          <Select data={location} name="location" id="location" />
+          <Select data={budget} name="budget" id="budget" />
         </div>
         <button
           type="submit"

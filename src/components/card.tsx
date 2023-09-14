@@ -1,7 +1,6 @@
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 interface ShowProps {
-  key: number;
   title: string;
   dev_by: string;
   price: number;
@@ -10,7 +9,6 @@ interface ShowProps {
 }
 
 const ShowProp: React.FC<ShowProps> = ({
-  key,
   title,
   dev_by,
   price,
@@ -20,10 +18,7 @@ const ShowProp: React.FC<ShowProps> = ({
   const f = new Intl.NumberFormat("en-EG");
   return (
     <Link to={`/${slug}`}>
-      <div
-        key={key}
-        className="h-[260px] md:w-[575px] lg:w-full w-full mx-auto rounded-lg overflow-hidden text-white relative flex group"
-      >
+      <div className="h-[260px] md:w-[575px] lg:w-full w-full mx-auto rounded-lg overflow-hidden text-white relative flex group">
         <div className="absolute left-0 top-0 z-10 w-full h-full flex justify-center items-center backdrop-brightness-75"></div>
         <div className="z-10 w-[90%] flex flex-row justify-between absolute top-3 left-4">
           <p className="flex gap-1 md:text-base text-sm">

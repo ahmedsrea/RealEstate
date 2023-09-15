@@ -1,10 +1,10 @@
 const express = require("express");
-const path = require("path");
+const app = express();
+// const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
 const CompoundsModel = require("./models/compounds");
-const app = express();
 const blogsRouter = require("./routes/blogs");
 
 app.use(cors()); // fuck you
@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+
 const upload = multer({ storage: storage });
 
 mongoose
@@ -31,6 +32,27 @@ app.get("/get-compounds", (req, res) => {
   CompoundsModel.find()
     .then((comps) => res.json(comps))
     .catch((err) => res.json(err));
+});
+
+app.get("/get-property", (req, res) => {
+  const { proj_type, location, budget } = req.query;
+
+  CompoundsModel.find({ proj_type: "property" })
+    .then((comps) => res.json(comps))
+    .catch((err) => res.json(err));
+});
+
+app.get("/:slug", async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const data = await CompoundsModel.findOne({ slug });
+    if (!data) {
+      return res.status(404).json({ error: "There is no data" });
+    }
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.post("/item-request", upload.array("images[]"), async (req, res, next) => {
@@ -57,6 +79,8 @@ app.post("/item-request", upload.array("images[]"), async (req, res, next) => {
     furnishing: req.body.furnishing,
     features: req.body.features,
     pay: req.body.pay,
+    desc: req.body.desc,
+    amenities: req.body.amenities,
     images: path,
   };
   try {

@@ -1,17 +1,29 @@
-import { useEffect, useState } from "react";
 import { FaAnglesRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import ShowProp from "../../components/card";
-import { getCompounds } from "../../lib/axios";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+type Data = {
+  title: string;
+  images: string;
+  slug: string;
+  markdown: string;
+  dev_by: string;
+  price: number;
+  _id: string;
+};
 
 const ShowItems = () => {
-  const [comps, setComps] = useState<any[]>([]);
+  const url = "http://localhost:3000/get-compounds";
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["showItems"],
+    queryFn: () => axios.get(url),
+  });
 
-  useEffect(() => {
-    getCompounds()
-      .then((data) => setComps(data.data))
-      .catch((err) => console.log(err));
-  }, [comps]);
+  if (isLoading) return "Loading";
+  if (error) return "An error has occured" + error;
+
   return (
     <div className="max-w-[1018px] w-full p-4 border border-[#dddddd] rounded-lg">
       <p className="flex flex-row items-center gap-2 text-base mb-7">
@@ -28,7 +40,7 @@ const ShowItems = () => {
         Compounds - 1020 compounds and 30810 properties for sale.
       </h1>
       <div className="mt-6 border-t border-gray-500 pt-4 grid lg:grid-cols-2 grid-cols-1 gap-7">
-        {comps.map(({ title, dev_by, price, images, slug, _id }) => {
+        {data?.data.map(({ title, dev_by, price, images, slug, _id }: Data) => {
           const image = images?.split(",");
           return (
             <ShowProp

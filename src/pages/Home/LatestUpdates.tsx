@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+type Data = {
+  title: string;
+  images: string;
+  slug: string;
+  markdown: string;
+  _id: string;
+};
 
 const LatestUpdates = () => {
   const url = "http://localhost:3000/blogs/blogs";
-  const [data, setData] = useState([]);
 
-  async function useFetch() {
-    return await fetch(url)
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["latestupdates"],
+    queryFn: () => fetch(url).then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    useFetch();
-  }, []);
+  if (isLoading) return "Loading...";
+
+  if (error) return "An error has occured " + error;
 
   return (
     <div className="w-full my-[100px] px-5">
@@ -22,10 +28,11 @@ const LatestUpdates = () => {
         <span className="under-line"></span>
       </h1>
       <div className="xl:max-w-[1110px] lg:max-w-[930px] md:max-w-[690px] sm:max-w-[510px] sm:h-auto h-[200px] overflow-y-auto mx-auto w-full sm:grid lg:grid-cols-2 grid-cols-1 flex flex-row gap-8 sm:p-0 p-5">
-        {data.map(({ title, images, slug, markdown }) => (
+        {data?.map(({ title, images, slug, markdown, _id }: Data) => (
           <Link
             to={`blog/${slug}`}
             className="w-full sm:h-[200px] h-auto flex flex-row gap-4 p-2 border border-[#DDDDDD]"
+            key={_id}
           >
             <div className="w-[200px] h-full">
               <img src={images} alt="" className="w-full h-full bg-cover" />

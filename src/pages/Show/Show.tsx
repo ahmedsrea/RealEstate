@@ -1,14 +1,24 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FirstSectoin from "./FirstSection/FirstSectoin";
 import ForSaleSection from "./ForSaleSection";
 import Order from "./Order";
 import Details from "./Details";
 import Amenities from "./Amenities";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Show = () => {
   const { slug } = useParams();
-  const [data, setData] = useState<any>({});
+  const url = `http://localhost:3000/${slug}`;
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["show"],
+    queryFn: () => axios.get(url),
+  });
+
+  if (isLoading) return "Loading....";
+  if (error) return "An error has occured" + error;
+
   const {
     title,
     status,
@@ -27,18 +37,7 @@ const Show = () => {
     features,
     pay,
     location,
-  } = data;
-
-  async function useFetch() {
-    let url = `http://localhost:3000/${slug}`;
-    return await fetch(url)
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }
-
-  useEffect(() => {
-    useFetch();
-  }, [data]);
+  } = data?.data;
 
   return (
     <div>

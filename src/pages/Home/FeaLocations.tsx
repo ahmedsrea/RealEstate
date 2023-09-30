@@ -12,8 +12,8 @@ const FeaLocations = () => {
         <span className="under-line"></span>
       </h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
-        {featLocations.map((data) => (
-          <Link to={`/search=${data.title.toLocaleLowerCase()}`}>
+        {featLocations.map((data, index) => (
+          <Link to={`/search=${data.title.toLocaleLowerCase()}`} key={index}>
             <div className="flex lg:h-[240px] relative overflow-hidden rounded-lg">
               <img src={data.bg} alt={data.title} className="flex-1 " />
               <div className="absolute top-0 left-0 bg-black/50 w-full h-full text-white p-4 flex justify-between">

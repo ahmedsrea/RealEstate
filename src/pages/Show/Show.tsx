@@ -6,6 +6,7 @@ import Details from "./Details";
 import Amenities from "./Amenities";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import NotFound from "../../components/NotFound";
 
 const Show = () => {
   const { slug } = useParams();
@@ -14,10 +15,11 @@ const Show = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["show"],
     queryFn: () => axios.get(url),
+    // enabled: false,
   });
 
   if (isLoading) return "Loading....";
-  if (error) return "An error has occured" + error;
+  if (error) return <NotFound />;
 
   const {
     title,

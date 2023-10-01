@@ -53,7 +53,7 @@ const FeaProjects = () => {
         </svg>
       </div>
       <div className="bg-[#F5F5F5] overflow-hidden md:px-0 px-[15px] w-full">
-        <h1 className="md:text-3xl text-2xl mb-16 text-black font-bold relative text-center">
+        <h1 className="md:text-3xl text-2xl mb-24 text-black font-bold relative text-center">
           Featured projects
           <span className="under-line"></span>
         </h1>
@@ -61,7 +61,6 @@ const FeaProjects = () => {
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
-          // centeredSlides={true}
           loop={true}
           slidesPerView={"auto"}
           breakpoints={{

@@ -39,3 +39,93 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: #fb6b01;
   transform: translate(-50%, -50%);
 }
+
+.not-found-image {
+  background: url("https://realestate.eg/svg/404.svg");
+  width: 100%;
+  height: 100%;
+}
+
+/* Start Featured Location */
+.swiper-1 {
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.swiper-slide-1 {
+  width: 100%;
+  max-width: 685px;
+  min-height: 285px;
+  height: 385px;
+  max-height: 385px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 50%;
+}
+@media (max-width: 780px) {
+  .swiper-slide {
+    max-height: 100%;
+  }
+}
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide-active {
+  opacity: 100%;
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #f8f8f7;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: x-large;
+  color: black;
+}
+/* End Featured Location */
+/* Range Slider */
+.range-input {
+  position: relative;
+}
+.range-input input {
+  position: absolute;
+  top: -5px;
+  height: 5px;
+  width: 100%;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  pointer-events: auto;
+  background: #17a2b8;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  -moz-appearance: none;
+  pointer-events: auto;
+  background: #17a2b8;
+  border: none;
+  cursor: pointer;
+}

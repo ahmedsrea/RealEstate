@@ -22,7 +22,7 @@ const MobileMenu = () => {
           <Link to="for-sale" className="hover:text-[#019DFB]">
             Properties for sale
           </Link>
-          <Link to="" className="hover:text-[#019DFB]">
+          <Link to="developers" className="hover:text-[#019DFB]">
             Developers
           </Link>
           <Link to="" className="bg-[#019DFB] text-white py-1 px-4 rounded-md">

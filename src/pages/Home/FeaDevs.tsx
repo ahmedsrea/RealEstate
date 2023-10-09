@@ -15,6 +15,7 @@ const FeaDevs = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["devs"],
     queryFn: () => axios.get(url),
+    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading...";
@@ -49,7 +50,10 @@ const FeaDevs = () => {
         className="pb-10"
       >
         {data?.data.map(({ slug, images, title }: Data) => (
-          <SwiperSlide className="border-[1px] border-[#ddd] rounded-lg overflow-hidden">
+          <SwiperSlide
+            className="border-[1px] border-[#ddd] rounded-lg overflow-hidden"
+            key={slug}
+          >
             <Link to={`developers/${slug}`} className="w-full flex">
               <img src={images} alt={title} className="w-full h-auto" />
             </Link>

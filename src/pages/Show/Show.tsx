@@ -15,7 +15,7 @@ const Show = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["show"],
     queryFn: () => axios.get(url),
-    // enabled: false,
+    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading....";

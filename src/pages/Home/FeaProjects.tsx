@@ -24,6 +24,7 @@ const FeaProjects = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["showItems"],
     queryFn: () => axios.get(url),
+    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading";
@@ -41,8 +42,8 @@ const FeaProjects = () => {
         >
           <defs>
             <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop stop-color="rgba(245, 245, 245, 1)" offset="0%"></stop>
-              <stop stop-color="rgba(245, 245, 245, 1)" offset="100%"></stop>
+              <stop stopColor="rgba(245, 245, 245, 1)" offset="0%"></stop>
+              <stop stopColor="rgba(245, 245, 245, 1)" offset="100%"></stop>
             </linearGradient>
           </defs>
           <path
@@ -96,7 +97,7 @@ const FeaProjects = () => {
             prevEl: ".swiper-button-prev",
           }}
           modules={[EffectCoverflow, Pagination, Navigation]}
-          className=""
+          className="swiper-1"
         >
           {data?.data.map(
             ({ title, dev_by, price, images, slug, _id }: Data) => {
@@ -104,7 +105,7 @@ const FeaProjects = () => {
               const f = new Intl.NumberFormat("en-EG");
 
               return (
-                <SwiperSlide key={_id}>
+                <SwiperSlide key={_id} className="swiper-slide-1">
                   <Link
                     to={`/${slug}`}
                     className="absolute top-0 left-0 w-full h-full z-20"
@@ -155,8 +156,8 @@ const FeaProjects = () => {
         >
           <defs>
             <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop stop-color="rgba(245, 245, 245, 1)" offset="0%"></stop>
-              <stop stop-color="rgba(245, 245, 245, 1)" offset="100%"></stop>
+              <stop stopColor="rgba(245, 245, 245, 1)" offset="0%"></stop>
+              <stop stopColor="rgba(245, 245, 245, 1)" offset="100%"></stop>
             </linearGradient>
           </defs>
           <path

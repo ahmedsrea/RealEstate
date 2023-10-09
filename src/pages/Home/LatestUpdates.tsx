@@ -15,6 +15,7 @@ const LatestUpdates = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["latestupdates"],
     queryFn: () => fetch(url).then((res) => res.json()),
+    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading...";

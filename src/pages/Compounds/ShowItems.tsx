@@ -1,59 +1,42 @@
 import { FaAnglesRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import ShowProp from "../../components/card";
+import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-type Data = {
-  title: string;
-  images: string;
-  slug: string;
-  markdown: string;
-  dev_by: string;
-  price: number;
-  _id: string;
-};
+import ShowCards from "../../components/ShowCards";
 
 const ShowItems = () => {
+  // const [searchParams] = useSearchParams();
+
+  // const proj_type = searchParams.get("project_type");
+  // const location = searchParams.get("location");
+  // const budget_range = searchParams.get("budget_range");
+
   const url = "http://localhost:3000/get-compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["showItems"],
     queryFn: () => axios.get(url),
+    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading";
   if (error) return "An error has occured" + error;
 
   return (
-    <div className="max-w-[1018px] w-full p-4 border border-[#dddddd] rounded-lg">
-      <p className="flex flex-row items-center gap-2 text-base mb-7">
+    <div className="max-w-[1018px] w-full sm:p-4 sm:border border-[#dddddd] rounded-lg">
+      <p className="flex flex-row items-center gap-2 text-sm mb-7 ml-4">
         <Link to={"/"} className="font-light">
           Home
         </Link>{" "}
         <FaAnglesRight size={10} />
-        <span className="text-sm text-[#B4BBC5]">Egypt's Compounds</span>
+        <span className="text-[#B4BBC5]">Egypt's Compounds</span>
       </p>
-      <h1 className="font-bold text-3xl relative">
+      <h1 className="font-bold sm:text-3xl text-2xl relative">
         <span className="before:absolute before:bottom-0 before:left-0 before:w-[50px] before:h-[10px] before:border-[#FB6B01] before:content-none">
           Egypt's
         </span>{" "}
         Compounds - 1020 compounds and 30810 properties for sale.
       </h1>
-      <div className="mt-6 border-t border-gray-500 pt-4 grid lg:grid-cols-2 grid-cols-1 gap-7">
-        {data?.data.map(({ title, dev_by, price, images, slug, _id }: Data) => {
-          const image = images?.split(",");
-          return (
-            <ShowProp
-              key={_id}
-              title={title}
-              dev_by={dev_by}
-              price={price}
-              image={image[0]}
-              slug={slug}
-            />
-          );
-        })}
-      </div>
+      <ShowCards data={data?.data} />
     </div>
   );
 };

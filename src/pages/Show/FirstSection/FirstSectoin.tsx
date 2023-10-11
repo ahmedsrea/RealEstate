@@ -46,7 +46,7 @@ const FirstSectoin = ({
   return (
     <div className="w-full bg-[#EDF0F4] lg:py-9 py-3">
       <div className="xl:max-w-[1400px] w-full mx-auto px-[15px] flex flex-col-reverse lg:flex-row  gap-9">
-        <div className="lg:max-w-[550px] w-full h-[350px] bg-gray-200">
+        <div className="lg:max-w-[550px] w-full lg:h-[400px] md:h-[700px] sm:h-[600px]">
           <Gallery image={image} />
         </div>
 

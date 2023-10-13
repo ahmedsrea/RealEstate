@@ -7,6 +7,7 @@ import Amenities from "./Amenities";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import NotFound from "../../components/NotFound";
+import OtherProjects from "./OtherProjects";
 
 const Show = () => {
   const { slug } = useParams();
@@ -81,6 +82,7 @@ const Show = () => {
         pay={pay}
       />
       <Amenities />
+      <OtherProjects />
     </div>
   );
 };

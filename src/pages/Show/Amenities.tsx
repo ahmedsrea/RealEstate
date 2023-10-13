@@ -2,7 +2,7 @@ import { BsCheckLg } from "react-icons/bs";
 
 const Amenities = () => {
   return (
-    <div className="py-10 w-full">
+    <div className="pt-10 mb-4 w-full">
       <h1 className="text-[28px] font-bold text-center">Amenities</h1>
       <div className="w-full px-[15px]">
         <ul className="list-disc">

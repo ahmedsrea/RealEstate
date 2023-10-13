@@ -23,18 +23,16 @@ const ShowItems = () => {
 
   return (
     <div className="max-w-[1018px] w-full sm:p-4 sm:border border-[#dddddd] rounded-lg">
-      <p className="flex flex-row items-center gap-2 text-sm mb-7 ml-4">
+      <p className="flex flex-row items-center gap-2 text-sm mb-6 ml-4">
         <Link to={"/"} className="font-light">
           Home
         </Link>{" "}
         <FaAnglesRight size={10} />
         <span className="text-[#B4BBC5]">Egypt's Compounds</span>
       </p>
-      <h1 className="font-bold sm:text-3xl text-2xl relative">
-        <span className="before:absolute before:bottom-0 before:left-0 before:w-[50px] before:h-[10px] before:border-[#FB6B01] before:content-none">
-          Egypt's
-        </span>{" "}
-        Compounds - 1020 compounds and 30810 properties for sale.
+      <h1 className="font-bold sm:text-3xl text-2xl relative mb-7">
+        <span className="">Egypt's</span> Compounds - 1020 compounds and 30810
+        properties for sale.
       </h1>
       <ShowCards data={data?.data} />
     </div>

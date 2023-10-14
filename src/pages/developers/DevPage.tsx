@@ -46,9 +46,7 @@ const DevPage = () => {
       </div>
 
       <div className="flex justify-center text-center w-full bg-[#F6F7F9] h-[190px] mb-4">
-        <h1 className="text-2xl font-semibold leading-[190px]">
-          About {title}
-        </h1>
+        <h1 className="text-2xl font-semibold mt-[80px]">About {title}</h1>
       </div>
     </div>
   );

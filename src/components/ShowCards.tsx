@@ -6,7 +6,7 @@ const ShowCards = ({ data }: any) => {
   const [card, setCard] = useState("compounds");
   return (
     <div>
-      <div className="mt-10 border-b border-[#dddddd] text-lg font-light">
+      <div className="pt-3 border-b border-[#dddddd] text-lg font-light">
         <button
           className={`
           ${
@@ -14,11 +14,12 @@ const ShowCards = ({ data }: any) => {
               ? "border-black text-[#2D3436]"
               : "border-none text-[#999999]"
           } 
-            px-6 
+            px-6
             pb-2 
             uppercase  
             border-b-[3px] 
-            hover:border-none`}
+            hover:border-none
+            `}
           onClick={() => setCard("compounds")}
         >
           compounds
@@ -34,6 +35,7 @@ const ShowCards = ({ data }: any) => {
             pb-2 
             uppercase
             border-b-[3px]
+            hover:border-none
             `}
           onClick={() => setCard("properties")}
         >
@@ -41,12 +43,17 @@ const ShowCards = ({ data }: any) => {
         </button>
       </div>
 
-      <div className="mt-4 grid lg:grid-cols-2 grid-cols-1 gap-7">
-        {card === "compounds" &&
-          data.map((data: any) => <CompoundCard key={data._id} {...data} />)}
-      </div>
+      <div className="min-h-[185px]">
+        {card === "compounds" && data && (
+          <div className="mt-4 grid lg:grid-cols-2 grid-cols-1 gap-7">
+            {data.map((data: any) => (
+              <CompoundCard key={data._id} {...data} />
+            ))}
+          </div>
+        )}
 
-      {card === "properties" && <PropertyCards data={data} />}
+        {card === "properties" && data && <PropertyCards data={data} />}
+      </div>
     </div>
   );
 };

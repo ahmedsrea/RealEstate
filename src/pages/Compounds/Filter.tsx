@@ -10,7 +10,7 @@ import {
 
 const Filter = () => {
   return (
-    <div className="max-w-[320px] hidden lg:block p-4 border border-[#dddddd] rounded-lg">
+    <div className="max-w-[320px] h-fit hidden lg:block p-4 border border-[#dddddd] rounded-lg">
       <form method="" action="" className="flex flex-col">
         <label htmlFor="location">Location</label>
         <select name="location" id="location" className="filter-select">

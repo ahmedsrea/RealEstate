@@ -9,7 +9,7 @@ const PropertyCards = ({ data }: any) => {
 
   return (
     <div className="w-full">
-      <div className="w-flul flex flex-row justify-end border-b border-[#dddddd] pb-4 mb-4">
+      <div className="w-flul flex flex-row justify-end border-b border-[#dddddd] py-[18px] pr-5 mb-4">
         <FaList
           size={20}
           className={`

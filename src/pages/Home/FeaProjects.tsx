@@ -8,6 +8,8 @@ import "swiper/css/navigation";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { Reveal } from "react-awesome-reveal";
+import { keyframes } from "@emotion/react";
 
 type Data = {
   title: string;
@@ -29,6 +31,18 @@ const FeaProjects = () => {
 
   if (isLoading) return "Loading";
   if (error) return "An error has occured" + error;
+
+  const customAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
   return (
     <div className="w-full">
@@ -54,10 +68,12 @@ const FeaProjects = () => {
         </svg>
       </div>
       <div className="bg-[#F5F5F5] overflow-hidden md:px-0 px-[15px] w-full">
-        <h1 className="md:text-3xl text-2xl mb-24 text-black font-bold relative text-center">
-          Featured projects
-          <span className="under-line"></span>
-        </h1>
+        <Reveal keyframes={customAnimation} duration={1000} triggerOnce>
+          <h1 className="md:text-3xl text-2xl mb-24 text-black font-bold relative text-center">
+            Featured projects
+            <span className="under-line"></span>
+          </h1>
+        </Reveal>
 
         <Swiper
           effect={"coverflow"}

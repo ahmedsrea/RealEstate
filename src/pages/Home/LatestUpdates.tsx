@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import Reveal from "react-awesome-reveal";
+import { keyframes } from "@emotion/react";
 
 type Data = {
   title: string;
@@ -22,12 +24,26 @@ const LatestUpdates = () => {
 
   if (error) return "An error has occured " + error;
 
+  const customAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  `;
+
   return (
     <div className="w-full my-[100px] px-5">
-      <h1 className="text-center mb-[100px] text-3xl font-bold relative">
-        Latest Real Estate Updates
-        <span className="under-line"></span>
-      </h1>
+      <Reveal keyframes={customAnimation} duration={1000} triggerOnce>
+        <h1 className="text-center mb-[100px] text-3xl font-bold relative">
+          Latest Real Estate Updates
+          <span className="under-line"></span>
+        </h1>
+      </Reveal>
       <div className="xl:max-w-[1110px] lg:max-w-[930px] md:max-w-[690px] sm:max-w-[510px] sm:h-auto h-[200px] overflow-y-auto mx-auto w-full sm:grid lg:grid-cols-2 grid-cols-1 flex flex-row gap-8 sm:p-0 p-5">
         {data?.map(({ title, images, slug, markdown, _id }: Data) => (
           <Link

@@ -1,16 +1,32 @@
 import { Link } from "react-router-dom";
 import { featLocations } from "../../data/constants";
+import { Reveal } from "react-awesome-reveal";
+import { keyframes } from "@emotion/react";
 
 const FeaLocations = () => {
+  const customAnimation = keyframes`
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `;
+
   return (
     <div
       className="flex flex-col items-center my-12 xl:max-w-[1400px] w-full
     py-[14px] px-[15px] mx-auto"
     >
-      <h1 className="md:text-3xl text-2xl mb-16 text-black font-bold relative">
-        Featured Locations
-        <span className="under-line"></span>
-      </h1>
+      <Reveal keyframes={customAnimation} duration={1000} triggerOnce>
+        <h1 className="md:text-3xl text-2xl mb-16 text-black font-bold relative">
+          Featured Locations
+          <span className="under-line"></span>
+        </h1>
+      </Reveal>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
         {featLocations.map((data, index) => (
           <Link to={`/search=${data.title.toLocaleLowerCase()}`} key={index}>

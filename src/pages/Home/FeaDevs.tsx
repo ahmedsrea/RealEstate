@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { keyframes } from "@emotion/react";
+import { Reveal } from "react-awesome-reveal";
 
 type Data = {
   title: string;
@@ -20,12 +22,27 @@ const FeaDevs = () => {
 
   if (isLoading) return "Loading...";
   if (error) return "An error has occured" + error;
+
+  const customAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  `;
+
   return (
     <div className="xl:max-w-[1110px] lg:max-w-[930px] md:max-w-[690px] sm:max-w-[510px] mx-auto w-full px-[15px]">
-      <h1 className="md:text-3xl text-2xl mb-24 text-black font-bold relative text-center">
-        Featured Developers
-        <span className="under-line"></span>
-      </h1>
+      <Reveal keyframes={customAnimation} duration={1000} triggerOnce>
+        <h1 className="md:text-3xl text-2xl mb-24 text-black font-bold relative text-center">
+          Featured Developers
+          <span className="under-line"></span>
+        </h1>
+      </Reveal>
       <Swiper
         grabCursor={true}
         breakpoints={{
@@ -65,14 +82,16 @@ const FeaDevs = () => {
         </div>
       </Swiper>
 
-      <div className="mt-16 flex justify-center">
-        <Link
-          to={"developers"}
-          className="bg-[#FB6B01] text-white hover:bg-white hover:text-[#FB6B01] py-2 px-6 rounded-md transition duration-300 shadow-md"
-        >
-          View All Developers
-        </Link>
-      </div>
+      <Reveal keyframes={customAnimation} duration={1000} triggerOnce>
+        <div className="mt-16 flex justify-center">
+          <Link
+            to={"developers"}
+            className="bg-[#FB6B01] text-white hover:bg-white hover:text-[#FB6B01] py-2 px-6 rounded-md transition duration-300 shadow-md"
+          >
+            View All Developers
+          </Link>
+        </div>
+      </Reveal>
     </div>
   );
 };

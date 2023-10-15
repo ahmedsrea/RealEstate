@@ -41,7 +41,6 @@ const ForSaleCard = ({
           small ? "w-[100px]" : "max-w-[150px]"
         } relative`}
       >
-        <div className="absolute"></div>
         <Link to={`/${slug}`}>
           <img src={image[0]} alt={title} className="w-full h-full bg-cover" />
           <div className="absolute right-4 bottom-4 text-[#B4B8B8] text-sm flex flex-row gap-1 z-10">

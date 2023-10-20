@@ -22,6 +22,10 @@ const compoundsSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
   proj_type: {
     type: String,
     required: true,
@@ -36,6 +40,10 @@ const compoundsSchema = new mongoose.Schema({
   },
   unite_space: {
     type: String,
+    required: true,
+  },
+  unite_size: {
+    type: Number,
     required: true,
   },
   neighborhood: {
@@ -59,6 +67,14 @@ const compoundsSchema = new mongoose.Schema({
     required: true,
   },
   pay: {
+    type: String,
+    required: true,
+  },
+  desc: {
+    type: String,
+    required: true,
+  },
+  amenities: {
     type: String,
     required: true,
   },

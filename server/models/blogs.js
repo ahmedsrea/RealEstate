@@ -56,4 +56,5 @@ blogSchema.pre("validate", function (next) {
   next();
 });
 
-module.exports = mongoose.model("Blogs", blogSchema);
+const BlogsModel = mongoose.model("blogs", blogSchema);
+module.exports = BlogsModel;

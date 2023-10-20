@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Blogs = () => {
-  const url = "http://localhost:3000/blogs/blogs";
-  const [blogs, setBlogs] = useState<any[]>([]);
+  const url = "http://localhost:3000/api/v1/blogs";
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["showItems"],
+    queryFn: () => axios.get(url),
+    networkMode: "offlineFirst",
+  });
 
-  useEffect(() => {
-    fetch(url, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => setBlogs(data));
-  }, []);
+  if (isLoading) return "Loading";
+  if (error) return "An error has occured" + error;
 
   return (
     <div className="mt-9 xl:max-w-[1400px] w-full mx-auto px-[15px]">
@@ -27,7 +27,7 @@ const Blogs = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 pb-24">
-          {blogs?.map((data) => (
+          {data?.data?.data.map((data: any) => (
             <div
               key={data._id}
               className="rounded-md overflow-hidden border border-[#DDDDDD] group"

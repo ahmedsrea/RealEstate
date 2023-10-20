@@ -1,11 +1,21 @@
-import { useEffect, useState } from "react";
-import { getBlog } from "../../lib/axios";
 import { Link, useParams } from "react-router-dom";
 import AboutBlog from "./AboutBlog";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import NotFound from "../../components/NotFound";
 
 const Blog = () => {
   const { slug } = useParams();
-  const [blog, setblog] = useState<any>([]);
+  const url = `http://localhost:3000/api/v1/blogs/${slug}`;
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["Blog"],
+    queryFn: () => axios.get(url),
+    networkMode: "offlineFirst",
+  });
+
+  if (isLoading) return "Loading....";
+  if (error) return <NotFound />;
+
   const {
     title,
     blog_title,
@@ -17,12 +27,11 @@ const Blog = () => {
     del_date,
     markdown,
     createdAt,
-  } = blog;
-  useEffect(() => {
-    getBlog(slug)
-      .then((data) => setblog(data.data))
-      .catch((err) => console.log(err));
-  }, [slug]);
+    sanitizedHtml,
+  } = data?.data?.data || {};
+
+  if (isLoading) return "Loadding...";
+  if (error) return "An error has occured" + error;
 
   return (
     <div className="mt-9 xl:max-w-[1280px] w-full mx-auto">
@@ -55,6 +64,7 @@ const Blog = () => {
           del_date={del_date}
           markdown={markdown}
           createdAt={createdAt}
+          sanitizedHtml={sanitizedHtml}
         />
       </div>
     </div>

@@ -2,7 +2,21 @@ const CompoundsModel = require("../models/compounds");
 
 exports.getAllCompounds = async (req, res) => {
   try {
-    const compounds = await CompoundsModel.find();
+    console.log(req.query);
+
+    // BUILD QUERY
+    // 1A) Filtering
+    const queryObj = { ...req.query };
+
+    // 1B) Advanced filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    console.log(JSON.parse(queryStr));
+
+    let query = CompoundsModel.find(JSON.parse(queryStr));
+
+    // EXECUTE QUERY
+    const compounds = await query;
 
     res.status(200).json({
       status: "success",

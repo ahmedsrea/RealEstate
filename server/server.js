@@ -26,6 +26,13 @@ app.use("/api/v1/compounds", compoundRoutes);
 app.use("/api/v1/developers", devRoutes);
 app.use("/api/v1/blogs", blogRoutes);
 
+app.all("*", (req, res) => {
+  res.status(404).json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server`,
+  });
+});
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });

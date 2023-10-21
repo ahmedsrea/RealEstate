@@ -6,6 +6,8 @@ const CompoundsModel = require("./models/compounds");
 const blogRoutes = require("./routes/blogRoutes");
 const compoundRoutes = require("./routes/compoundRoutes");
 const devRoutes = require("./routes/devRoutes");
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 
 app.use(cors()); // fuck you
 app.use(express.json());
@@ -26,12 +28,11 @@ app.use("/api/v1/compounds", compoundRoutes);
 app.use("/api/v1/developers", devRoutes);
 app.use("/api/v1/blogs", blogRoutes);
 
-app.all("*", (req, res) => {
-  res.status(404).json({
-    status: "fail",
-    message: `Can't find ${req.originalUrl} on this server`,
-  });
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
+
+app.use(globalErrorHandler);
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");

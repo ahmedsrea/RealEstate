@@ -1,64 +1,44 @@
 const BlogsModel = require("../models/blogs");
+const catchAsync = require("../utils/catchAsync");
 
-exports.getAllBlogs = async (req, res) => {
-  try {
-    const blogs = await BlogsModel.find();
+exports.getAllBlogs = catchAsync(async (req, res, next) => {
+  const blogs = await BlogsModel.find();
 
-    res.status(200).json({
-      status: "success",
-      data: blogs,
+  res.status(200).json({
+    status: "success",
+    data: blogs,
+  });
+});
+
+exports.getBlog = catchAsync(async (req, res, next) => {
+  const slug = req.params.slug;
+  const blog = await BlogsModel.findOne({ slug });
+
+  res.status(200).json({
+    status: "success",
+    data: blog,
+  });
+});
+
+exports.createBlog = catchAsync(async (req, res, next) => {
+  let path = "";
+  if (req.files) {
+    req.files.forEach(function (files) {
+      path = path + files.path + ",";
     });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
+    path = path.substring(0, path.lastIndexOf(","));
   }
-};
-
-exports.getBlog = async (req, res) => {
-  try {
-    const slug = req.params.slug;
-    const blog = await BlogsModel.findOne({ slug });
-
-    res.status(200).json({
-      status: "success",
-      data: blog,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-exports.createBlog = async (req, res) => {
-  try {
-    let path = "";
-    if (req.files) {
-      req.files.forEach(function (files) {
-        path = path + files.path + ",";
-      });
-      path = path.substring(0, path.lastIndexOf(","));
-    }
-    let blog = {
-      blog_title: req.body.blog_title,
-      title: req.body.title,
-      price: req.body.price,
-      status: req.body.status,
-      del_date: req.body.del_date,
-      dev_by: req.body.dev_by,
-      description: req.body.description,
-      markdown: req.body.markdown,
-      images: path,
-    };
-    await BlogsModel.create(blog);
-    res.json({ status: "ok" });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
+  let blog = {
+    blog_title: req.body.blog_title,
+    title: req.body.title,
+    price: req.body.price,
+    status: req.body.status,
+    del_date: req.body.del_date,
+    dev_by: req.body.dev_by,
+    description: req.body.description,
+    markdown: req.body.markdown,
+    images: path,
+  };
+  await BlogsModel.create(blog);
+  res.json({ status: "ok" });
+});

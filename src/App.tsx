@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Compounds from "./pages/Compounds/Compounds";
 import Home from "./pages/Home/Home";
@@ -17,11 +12,13 @@ import Blogs from "./pages/Blog/Blogs";
 import NotFound from "./components/NotFound";
 import Developers from "./pages/developers/Developers";
 import DevPage from "./pages/developers/DevPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

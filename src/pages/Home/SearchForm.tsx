@@ -11,14 +11,13 @@ const SearchForm = () => {
   });
   const navigate = useNavigate();
 
-  function handle(e: any) {
+  function handle(e: React.ChangeEvent<HTMLInputElement>) {
     const newData = { ...data };
     newData[e.target.id] = e.target.value;
     setData(newData);
-    console.log(newData);
   }
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     navigate(
       `/search?project_type=${data.proj_type}&location=${

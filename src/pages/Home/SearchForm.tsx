@@ -21,7 +21,9 @@ const SearchForm = () => {
   function handleSubmit(e: any) {
     e.preventDefault();
     navigate(
-      `/search?project_type=${data.proj_type}&location=${data.location}&budget_range=${data.budget}`
+      `/search?project_type=${data.proj_type}&location=${
+        data.location
+      }&budget_range=${encodeURIComponent(data.budget)}`
     );
   }
 

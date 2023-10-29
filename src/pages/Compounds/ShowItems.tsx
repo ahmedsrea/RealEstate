@@ -40,8 +40,8 @@ const ShowItems = () => {
         <span className="text-[#B4BBC5]">Egypt's Compounds</span>
       </p>
       <h1 className="font-bold sm:text-3xl text-2xl relative mb-7">
-        <span className="">Egypt's</span> Compounds - 1020 compounds and 30810
-        properties for sale.
+        <span className="">Egypt's</span> Compounds - {data?.data?.length}{" "}
+        compounds and 30810 properties for sale.
       </h1>
       <ShowCards data={data?.data.data} />
     </div>

@@ -1,20 +1,29 @@
 import { FaAnglesRight } from "react-icons/fa6";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ShowCards from "../../components/ShowCards";
 
 const ShowItems = () => {
-  // const [searchParams] = useSearchParams();
+  const uselocation = useLocation();
+  const searchParams = new URLSearchParams(uselocation.search);
+  // const selectedView = searchParams.get("view");
 
-  // const proj_type = searchParams.get("project_type");
-  // const location = searchParams.get("location");
-  // const budget_range = searchParams.get("budget_range");
+  const params = {
+    location: searchParams.get("location"),
+    proj_type: searchParams.get("project_type"),
+    unite_type: searchParams.get("property_type"),
+    dev_by: searchParams.get("developer"),
+    min_area: searchParams.get("min_area"),
+    max_area: searchParams.get("max_area"),
+    min_price: searchParams.get("min_price"),
+    max_price: searchParams.get("max_price"),
+  };
 
-  const url = "http://localhost:3000/get-compounds";
+  const url = "http://localhost:3000/api/v1/compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["showItems"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(url, { params }),
     networkMode: "offlineFirst",
   });
 
@@ -34,7 +43,7 @@ const ShowItems = () => {
         <span className="">Egypt's</span> Compounds - 1020 compounds and 30810
         properties for sale.
       </h1>
-      <ShowCards data={data?.data} />
+      <ShowCards data={data?.data.data} />
     </div>
   );
 };

@@ -10,6 +10,7 @@ const ShowItems = () => {
   // const selectedView = searchParams.get("view");
 
   const params = {
+    title: searchParams.get("title"),
     location: searchParams.get("location"),
     proj_type: searchParams.get("project_type"),
     unite_type: searchParams.get("property_type"),

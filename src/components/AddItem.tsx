@@ -4,6 +4,7 @@ import Input from "./inputs/Input";
 import CheckBox from "./inputs/CheckBox";
 import Textarea from "./inputs/Textarea";
 import Select from "./inputs/Select";
+import UploadWidget from "./UploadWidget";
 
 const propType = [
   { title: "Property", value: "property" },
@@ -11,7 +12,9 @@ const propType = [
 ];
 
 const AddItem = () => {
-  const url = "http://localhost:3000/item-request";
+  const url = "http://localhost:3000/api/v1/compounds";
+  const [urlString, setUrlString] = useState("");
+  const [error, updateError] = useState();
   const [data, setData] = useState({
     title: "",
     status: "",
@@ -31,12 +34,17 @@ const AddItem = () => {
     features: "",
     pay: "",
     desc: "",
-    amenities: {
-      security: "",
-      playground: "",
-    },
   });
-  const [images, setImages] = useState([]);
+  const [amenities, setAmenities] = useState({
+    security: false,
+    playground: false,
+    swimming_pools: false,
+    commercial_area: false,
+    mosque: false,
+    social_club: false,
+    health_club_and_Spa: false,
+    bathrooms: false,
+  });
 
   function handle(e: any) {
     const newData = { ...data };
@@ -45,41 +53,54 @@ const AddItem = () => {
     console.log(newData);
   }
 
-  function handleImages(e: any) {
-    console.log(e.target.files);
-    setImages(e.target.files);
+  function handleCheckBox(e: any) {
+    const newData = { amenities };
+    newData[e.target.value] = e.target.checked;
+    setAmenities(newData);
   }
 
-  function submit(e: any) {
+  function handleonUpload(error, result, widget) {
+    if (error) {
+      updateError(error);
+      widget.close({
+        quiet: true,
+      });
+      return;
+    }
+    const newUrl = result?.info?.secure_url;
+    setUrlString((prevUrlString) =>
+      prevUrlString ? `${prevUrlString},${newUrl}` : newUrl
+    );
+  }
+
+  const axiosData = JSON.stringify({
+    title: data.title,
+    status: data.status,
+    delivery_date: data.delivery_date,
+    dev_by: data.dev_by,
+    price: data.price,
+    location: data.location,
+    proj_type: data.proj_type,
+    proj_name: data.proj_name,
+    unite_type: data.unite_type,
+    unite_space: data.unite_space,
+    unite_size: data.unite_size,
+    neighborhood: data.neighborhood,
+    bedrooms: data.bedrooms,
+    bathrooms: data.bathrooms,
+    furnishing: data.furnishing,
+    features: data.features,
+    pay: data.pay,
+    desc: data.desc,
+    images: urlString,
+  });
+
+  function submit(e: React.FormEvent) {
     e.preventDefault();
     axios
-      .post(
-        url,
-        {
-          title: data.title,
-          status: data.status,
-          delivery_date: data.delivery_date,
-          dev_by: data.dev_by,
-          price: data.price,
-          location: data.location,
-          proj_type: data.proj_type,
-          proj_name: data.proj_name,
-          unite_type: data.unite_type,
-          unite_space: data.unite_space,
-          unite_size: data.unite_size,
-          neighborhood: data.neighborhood,
-          bedrooms: data.bedrooms,
-          bathrooms: data.bathrooms,
-          furnishing: data.furnishing,
-          features: data.features,
-          pay: data.pay,
-          desc: data.desc,
-          images: images,
-        },
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
+      .post(url, axiosData, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
   }
@@ -149,83 +170,115 @@ const AddItem = () => {
               value={data.dev_by}
             />
           </div>
-          <Input
-            label="Images"
-            htmlFor="images"
-            type="file"
-            name="images"
-            id="images"
-            onChange={handleImages}
-            accept="images/*"
-            multiple
-          />
+          <label htmlFor="Images">Images</label>
+          <UploadWidget onUpload={handleonUpload}>
+            {({ open }) => {
+              function handleOnClick(e) {
+                e.preventDefault();
+                open();
+              }
+              return (
+                <button
+                  onClick={handleOnClick}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none"
+                >
+                  Upload an Image
+                </button>
+              );
+            }}
+          </UploadWidget>
+          {error && <p>{error}</p>}
+          {urlString && (
+            <div>
+              {urlString.split(",").map((url) => (
+                <div>
+                  <div>
+                    <img
+                      src={url}
+                      alt="Uploaded image"
+                      className="w-[180px] h-[150px]"
+                    />
+                  </div>
+                  {url}
+                </div>
+              ))}
+            </div>
+          )}
           {/* Amenities */}
           <div className="">
             <p>Amenities</p>
             <div className="flex flex-row flex-wrap gap-4">
               <CheckBox
-                value={data.amenities.security}
+                value={amenities.security || ""}
+                checked={amenities.security}
                 name="security"
                 id="security"
                 htmlFor="security"
                 label="Security"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value={data.amenities.playground}
+                value={amenities.playground}
+                checked={amenities.playground}
                 name="playground"
                 id="playground"
                 htmlFor="playground"
                 label="Playground"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="swimming_pools"
+                value={amenities.swimming_pools}
+                checked={amenities.swimming_pools}
                 name="swimming_pools"
                 id="swimming_pools"
                 htmlFor="swimming_pools"
                 label="Swimming Pools"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="commercial_area"
+                value={amenities.commercial_area}
+                checked={amenities.commercial_area}
                 name="commercial_area"
                 id="commercial_area"
                 htmlFor="commercial_area"
                 label="Commercial Area"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="mosque"
+                value={amenities.mosque}
+                checked={amenities.mosque}
                 name="mosque"
                 id="mosque"
                 htmlFor="mosque"
                 label="Mosque"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="social_club"
+                value={amenities.social_club}
+                checked={amenities.social_club}
                 name="social_club"
                 id="social_club"
                 htmlFor="social_club"
                 label="Social Club"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="health_club_and_Spa"
+                value={amenities.health_club_and_Spa}
+                checked={amenities.health_club_and_Spa}
                 name="health_club_and_Spa"
                 id="health_club_and_Spa"
                 htmlFor="health_club_and_Spa"
                 label="Health Club and Spa"
-                onChange={(e) => handle(e)}
+                onChange={(e) => handleCheckBox(e)}
               />
               <CheckBox
-                value="2_bathrooms"
-                name="2_bathrooms"
-                id="2_bathrooms"
-                htmlFor="2_bathrooms"
-                label="2 Bathrooms"
-                onChange={(e) => handle(e)}
+                value={amenities.bathrooms}
+                checked={amenities.bathrooms}
+                name="bathrooms"
+                id="bathrooms"
+                htmlFor="bathrooms"
+                label="Bathrooms"
+                onChange={(e) => handleCheckBox(e)}
               />
             </div>
           </div>

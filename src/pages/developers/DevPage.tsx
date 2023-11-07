@@ -7,7 +7,7 @@ import DevProjects from "./DevProjects";
 
 const DevPage = () => {
   const { slug } = useParams();
-  const url = `http://localhost:3000/get-dev/${slug}`;
+  const url = `http://localhost:3000/api/v1/developers/${slug}`;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["devPage"],
@@ -18,7 +18,7 @@ const DevPage = () => {
   if (isLoading) return "Loading....";
   if (error) return <NotFound />;
 
-  const { images, title } = data?.data;
+  const { images, title } = data?.data?.data || {};
   document.title = `${title}`;
   return (
     <div className="">

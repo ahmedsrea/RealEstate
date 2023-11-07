@@ -11,7 +11,7 @@ type Data = {
 };
 
 const Developers = () => {
-  const url = "http://localhost:3000/get-dev";
+  const url = "http://localhost:3000/api/v1/developers";
   const { isLoading, error, data } = useQuery({
     queryKey: ["devs"],
     queryFn: () => axios.get(url),
@@ -33,7 +33,7 @@ const Developers = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-[120px] mb-16">
-        {data?.data.map(({ title, slug, images, _id }: Data) => (
+        {data?.data?.data.map(({ title, slug, images, _id }: Data) => (
           <div
             className="relative h-[250px] flex flex-col items-center"
             key={_id}

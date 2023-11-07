@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 
 const OtherProjects = () => {
-  const url = "http://localhost:3000/get-compounds";
+  const url = "http://localhost:3000/api/v1/compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["other-projects"],
     queryFn: () => axios.get(url),
@@ -46,9 +46,9 @@ const OtherProjects = () => {
         modules={[EffectCoverflow, Navigation, Pagination]}
         className="pb-8"
       >
-        {data?.data &&
-          data?.data.map((data: any) => (
-            <SwiperSlide>
+        {data?.data?.data &&
+          data?.data?.data.map((data: any) => (
+            <SwiperSlide key={data._id}>
               <CompoundCard {...data} showPage />
             </SwiperSlide>
           ))}

@@ -25,7 +25,7 @@ type Data = {
 };
 
 const FeaProjects = () => {
-  const url = "http://localhost:3000/get-compounds";
+  const url = "http://localhost:3000/api/v1/compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["showItems"],
     queryFn: () => axios.get(url),
@@ -100,7 +100,7 @@ const FeaProjects = () => {
           modules={[EffectCoverflow, Pagination, Navigation]}
           className="swiper-1"
         >
-          {data?.data.map(
+          {data?.data?.data.map(
             ({ title, dev_by, price, images, slug, _id }: Data) => {
               const image = images?.split(",");
               const f = new Intl.NumberFormat("en-EG");

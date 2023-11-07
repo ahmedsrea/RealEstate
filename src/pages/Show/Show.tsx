@@ -11,7 +11,7 @@ import OtherProjects from "./OtherProjects";
 
 const Show = () => {
   const { slug } = useParams();
-  const url = `http://localhost:3000/${slug}`;
+  const url = `http://localhost:3000/api/v1/compounds/${slug}`;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["show"],
@@ -40,7 +40,7 @@ const Show = () => {
     features,
     pay,
     location,
-  } = data?.data;
+  } = data?.data?.data || {};
 
   return (
     <div>

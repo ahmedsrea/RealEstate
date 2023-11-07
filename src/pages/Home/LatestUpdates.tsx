@@ -12,7 +12,7 @@ type Data = {
 };
 
 const LatestUpdates = () => {
-  const url = "http://localhost:3000/blogs/blogs";
+  const url = "http://localhost:3000/api/v1/blogs";
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["latestupdates"],
@@ -45,7 +45,7 @@ const LatestUpdates = () => {
         </h1>
       </Reveal>
       <div className="xl:max-w-[1110px] lg:max-w-[930px] md:max-w-[690px] sm:max-w-[510px] sm:h-auto h-[200px] overflow-y-auto mx-auto w-full sm:grid lg:grid-cols-2 grid-cols-1 flex flex-row gap-8 sm:p-0 p-5">
-        {data?.map(({ title, images, slug, markdown, _id }: Data) => (
+        {data?.data.map(({ title, images, slug, markdown, _id }: Data) => (
           <Link
             to={`blog/${slug}`}
             className="w-full sm:h-[200px] h-auto flex flex-row gap-4 p-2 border border-[#DDDDDD]"

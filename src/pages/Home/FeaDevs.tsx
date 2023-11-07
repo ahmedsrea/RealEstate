@@ -13,7 +13,7 @@ type Data = {
 };
 
 const FeaDevs = () => {
-  const url = "http://localhost:3000/get-dev";
+  const url = "http://localhost:3000/api/v1/developers";
   const { isLoading, error, data } = useQuery({
     queryKey: ["devs"],
     queryFn: () => axios.get(url),
@@ -66,7 +66,7 @@ const FeaDevs = () => {
         modules={[Pagination]}
         className="pb-10"
       >
-        {data?.data.map(({ slug, images, title }: Data) => (
+        {data?.data?.data.map(({ slug, images, title }: Data) => (
           <SwiperSlide
             className="border-[1px] border-[#ddd] rounded-lg overflow-hidden"
             key={slug}

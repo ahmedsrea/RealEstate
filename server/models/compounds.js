@@ -76,7 +76,6 @@ const compoundsSchema = new mongoose.Schema({
   },
   amenities: {
     type: String,
-    required: true,
   },
   images: {
     type: String,
@@ -84,7 +83,6 @@ const compoundsSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true,
     unique: true,
   },
 });
@@ -93,6 +91,7 @@ compoundsSchema.pre("validate", function (next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
+  next();
 });
 
 const CompoundsModel = mongoose.model("compounds", compoundsSchema);

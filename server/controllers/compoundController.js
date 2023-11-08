@@ -49,38 +49,9 @@ exports.getCompound = catchAsync(async (req, res, next) => {
 });
 
 exports.createCompound = catchAsync(async (req, res, next) => {
-  let path = "";
-  if (req.files) {
-    req.files.forEach(function (files) {
-      path = path + files.path + ",";
-    });
-    path = path.substring(0, path.lastIndexOf(","));
-  }
+  const newCompound = await CompoundsModel.create(req.body);
 
-  let obj = {
-    title: req.body.title,
-    status: req.body.status,
-    delivery_date: req.body.delivery_date,
-    dev_by: req.body.dev_by,
-    price: req.body.price,
-    proj_type: req.body.proj_type,
-    proj_name: req.body.proj_name,
-    unite_type: req.body.unite_type,
-    unite_space: req.body.unite_space,
-    neighborhood: req.body.neighborhood,
-    bedrooms: req.body.bedrooms,
-    bathrooms: req.body.bathrooms,
-    furnishing: req.body.furnishing,
-    features: req.body.features,
-    pay: req.body.pay,
-    desc: req.body.desc,
-    amenities: req.body.amenities,
-    images: path,
-  };
-
-  const newCompound = await CompoundsModel.create(obj);
-
-  res.status(200).json({
+  res.status(201).json({
     status: "success",
     data: newCompound,
   });

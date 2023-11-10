@@ -9,7 +9,13 @@ exports.getAllCompounds = catchAsync(async (req, res, next) => {
     }
   }
 
-  const excludedFields = ["min_area", "max_area", "min_price", "max_price"];
+  const excludedFields = [
+    "min_area",
+    "max_area",
+    "min_price",
+    "max_price",
+    "page",
+  ];
   excludedFields.forEach((el) => delete queryObj[el]);
 
   let query = CompoundsModel.find(queryObj);
@@ -28,12 +34,21 @@ exports.getAllCompounds = catchAsync(async (req, res, next) => {
       .lte(req.query.max_area);
   }
 
-  // EXECUTE QUERY
+  const total = await CompoundsModel.countDocuments(queryObj);
+  const page = req.query.page * 1 || 1;
+  const perPage = req.query.per_page * 1 || 10;
+  const totalPages = Math.ceil(total / perPage);
+
+  query = query.skip((page - 1) * perPage).limit(perPage);
+
   const compounds = await query;
 
   res.status(200).json({
     status: "success",
-    length: compounds.length,
+    page,
+    per_page: perPage,
+    total,
+    total_pages: totalPages,
     data: compounds,
   });
 });

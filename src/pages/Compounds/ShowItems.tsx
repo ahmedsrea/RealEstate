@@ -3,8 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ShowCards from "../../components/ShowCards";
+import { useState } from "react";
+import PageButton from "../../components/PageButton";
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
 
 const ShowItems = () => {
+  const [page, setPage] = useState(1);
   const uselocation = useLocation();
   const searchParams = new URLSearchParams(uselocation.search);
   // const selectedView = searchParams.get("view");
@@ -21,15 +28,50 @@ const ShowItems = () => {
     max_price: searchParams.get("max_price"),
   };
 
-  const url = "http://localhost:3000/api/v1/compounds";
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["showItems"],
+  const url = `http://localhost:3000/api/v1/compounds?page=${page}`;
+  const { isLoading, error, data, isPreviousData } = useQuery({
+    queryKey: ["showItems", { page }],
     queryFn: () => axios.get(url, { params }),
+    keepPreviousData: true,
     networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading";
   if (error) return "An error has occured" + error;
+
+  const nextPage = () => setPage((prev) => prev + 1);
+  const prevPage = () => setPage((prev) => prev - 1);
+  const pagesArray = Array(data?.data?.total_pages)
+    .fill()
+    .map((_, index) => index + 1);
+
+  const nav = (
+    <nav className="flex justify-center gap-2 mt-[65px] mb-[75px] pt-5 border-t border-[#DDDDDD]">
+      <hr />
+      <button
+        onClick={prevPage}
+        disabled={isPreviousData || page === 1}
+        className="border px-[12px] py-2 rounded-md"
+      >
+        <MdOutlineKeyboardArrowLeft />
+      </button>
+      {pagesArray.map((pg) => (
+        <PageButton
+          key={pg}
+          pg={pg}
+          setPage={setPage}
+          isPreviousData={isPreviousData}
+        />
+      ))}
+      <button
+        onClick={nextPage}
+        disabled={isPreviousData || page === data?.data?.total_pages}
+        className="border border-[#FB6B01] text-[#FB6B01] px-[12px] py-2 rounded-md"
+      >
+        <MdOutlineKeyboardArrowRight />
+      </button>
+    </nav>
+  );
 
   return (
     <div className="max-w-[1018px] w-full sm:p-4 sm:border border-[#dddddd] rounded-lg">
@@ -41,10 +83,11 @@ const ShowItems = () => {
         <span className="text-[#B4BBC5]">Egypt's Compounds</span>
       </p>
       <h1 className="font-bold sm:text-3xl text-2xl relative mb-7">
-        <span className="">Egypt's</span> Compounds - {data?.data?.length}{" "}
+        <span className="">Egypt's</span> Compounds - {data?.data?.total}{" "}
         compounds and 30810 properties for sale.
       </h1>
       <ShowCards data={data?.data.data} />
+      {nav}
     </div>
   );
 };

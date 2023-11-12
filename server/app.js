@@ -39,12 +39,6 @@ app.use(cors()); // fuck you
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/get-property", (req, res) => {
-  CompoundsModel.find({ proj_type: "property" })
-    .then((comps) => res.json(comps))
-    .catch((err) => res.json(err));
-});
-
 // Routes
 app.use("/api/v1/compounds", compoundRoutes);
 app.use("/api/v1/developers", devRoutes);

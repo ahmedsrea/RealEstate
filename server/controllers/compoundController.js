@@ -110,7 +110,7 @@ exports.getAllProperty = catchAsync(async (req, res, next) => {
 
   const total = await CompoundsModel.countDocuments(queryObj);
   const page = req.query.page * 1 || 1;
-  const perPage = req.query.per_page * 1 || 10;
+  const perPage = req.query.per_page * 1 || 50;
   const totalPages = Math.ceil(total / perPage);
 
   query = query.skip((page - 1) * perPage).limit(perPage);

@@ -28,7 +28,7 @@ const Blogs = () => {
   const prevPage = () => setPage((prev) => prev - 1);
 
   const nav = (
-    <nav className="flex justify-center gap-2 py-5 border-t border-[#DDDDDD]">
+    <nav className="flex justify-center gap-2 py-5 mb-[48px] border-t border-[#DDDDDD]">
       <button
         onClick={prevPage}
         disabled={isPreviousData || page === 1}

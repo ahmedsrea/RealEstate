@@ -2,10 +2,20 @@ const BlogsModel = require("../models/blogs");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getAllBlogs = catchAsync(async (req, res, next) => {
-  const blogs = await BlogsModel.find();
+  const total = await BlogsModel.countDocuments();
+  const page = req.query.page * 1 || 1;
+  const perPage = req.query.per_page * 1 || 10;
+  const totalPages = Math.ceil(total / perPage);
+  const blogs = await BlogsModel.find()
+    .skip((page - 1) * perPage)
+    .limit(perPage);
 
   res.status(200).json({
     status: "success",
+    page,
+    per_page: perPage,
+    total,
+    total_pages: totalPages,
     data: blogs,
   });
 });

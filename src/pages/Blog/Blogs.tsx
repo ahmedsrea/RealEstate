@@ -95,6 +95,16 @@ const Blogs = () => {
           ))}
         </div>
         {nav}
+
+        <div className="w-full py-5 border-t border-[#DDDDDD]">
+          <div className="w-full flex justify-center bg-[#E2E3E4] p-5 rounded-[4px] text-[#595e60]">
+            Please contact us on{" "}
+            <span className="font-bold mx-1 text-[#404446]">+201009808986</span>{" "}
+            or via
+            <span className="font-bold mx-1 text-[#404446]">WhatsApp</span> to
+            get help.
+          </div>
+        </div>
       </div>
     </div>
   );

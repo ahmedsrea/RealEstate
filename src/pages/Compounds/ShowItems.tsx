@@ -47,11 +47,14 @@ const ShowItems = () => {
 
   const nav = (
     <nav className="flex justify-center gap-2 mt-[65px] mb-[75px] pt-5 border-t border-[#DDDDDD]">
-      <hr />
       <button
         onClick={prevPage}
         disabled={isPreviousData || page === 1}
-        className="border px-[12px] py-2 rounded-md"
+        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
+          isPreviousData || page !== 1
+            ? "border-[#FB6B01] text-[#FB6B01]"
+            : "text-[#6a6a6a]"
+        }`}
       >
         <MdOutlineKeyboardArrowLeft />
       </button>
@@ -66,7 +69,11 @@ const ShowItems = () => {
       <button
         onClick={nextPage}
         disabled={isPreviousData || page === data?.data?.total_pages}
-        className="border border-[#FB6B01] text-[#FB6B01] px-[12px] py-2 rounded-md"
+        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
+          isPreviousData || page === data?.data?.total_pages
+            ? "text-[#6a6a6a]"
+            : "border-[#FB6B01] text-[#FB6B01]"
+        }`}
       >
         <MdOutlineKeyboardArrowRight />
       </button>

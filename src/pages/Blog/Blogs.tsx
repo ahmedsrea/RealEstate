@@ -2,17 +2,57 @@ import { Link } from "react-router-dom";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
+
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
 const Blogs = () => {
-  const url = "http://localhost:3000/api/v1/blogs";
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["showItems"],
+  const [page, setPage] = useState(1);
+  const url = `http://localhost:3000/api/v1/blogs?page=${page}`;
+  const {
+    isLoading,
+    error,
+    data: blogs,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ["showItems", { page }],
     queryFn: () => axios.get(url),
+    keepPreviousData: true,
     networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading";
   if (error) return "An error has occured" + error;
+
+  const nextPage = () => setPage((prev) => prev + 1);
+  const prevPage = () => setPage((prev) => prev - 1);
+
+  const nav = (
+    <nav className="flex justify-center gap-2 py-5 border-t border-[#DDDDDD]">
+      <button
+        onClick={prevPage}
+        disabled={isPreviousData || page === 1}
+        className={`flex items-center border px-[12px] py-2 rounded-md gap-2 hover:bg-[#FB6B01] hover:text-white hover:opacity-75 ${
+          page !== 1 ? "border-[#FB6B01] text-[#FB6B01]" : "text-[#6a6a6a]"
+        }`}
+      >
+        <FaAngleDoubleLeft size={8} />
+        Previous
+      </button>
+      <button
+        onClick={nextPage}
+        disabled={isPreviousData || page === blogs?.data?.total_pages}
+        className={`flex items-center border px-[12px] py-2 rounded-md gap-2 hover:bg-[#FB6B01] hover:text-white hover:opacity-75 ${
+          isPreviousData || page === blogs?.data?.total_pages
+            ? "text-[#6a6a6a]"
+            : "border-[#FB6B01] text-[#FB6B01] "
+        }`}
+      >
+        Next
+        <FaAngleDoubleRight size={8} />
+      </button>
+    </nav>
+  );
 
   return (
     <div className="mt-9 xl:max-w-[1400px] w-full mx-auto px-[15px]">
@@ -26,8 +66,8 @@ const Blogs = () => {
           <span className="mr-2 ml-2">/</span> Blog
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 pb-24">
-          {data?.data?.data.map((data: any) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 pb-[56px]">
+          {blogs?.data?.data.map((data: any) => (
             <div
               key={data._id}
               className="rounded-md overflow-hidden border border-[#DDDDDD] group"
@@ -46,7 +86,7 @@ const Blogs = () => {
                 </div>
                 <div className=" text-[14px] my-3 text-[#2d3436]">
                   <ReactMarkdown
-                    children={data.markdown.slice(0, 50) + "..."}
+                    children={data?.markdown?.slice(0, 50) + "..."}
                   />
                   {/* <ReactMarkdown>Hello *Ahmed*</ReactMarkdown> */}
                 </div>
@@ -54,6 +94,7 @@ const Blogs = () => {
             </div>
           ))}
         </div>
+        {nav}
       </div>
     </div>
   );

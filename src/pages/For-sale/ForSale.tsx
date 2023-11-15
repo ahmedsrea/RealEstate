@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ForSaleCard from "../../components/ForSaleCard";
 import SaleFilter from "./SaleFilter";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
-import PageButton from "../../components/PageButton";
+import PaginationNav from "../../components/PaginationNav";
 
 const ForSale = () => {
   const [page, setPage] = useState(1);
@@ -34,51 +30,6 @@ const ForSale = () => {
     .fill()
     .map((_, index) => index + 1);
 
-  const nav = (
-    <nav className="flex justify-center gap-2 mt-[30px] mb-[75px] pt-5 border-t border-[#DDDDDD]">
-      <button
-        onClick={prevPage}
-        disabled={isPreviousData || page === 1}
-        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
-          isPreviousData || page !== 1
-            ? "border-[#FB6B01] text-[#FB6B01]"
-            : "text-[#6a6a6a]"
-        }`}
-      >
-        <MdOutlineKeyboardArrowLeft />
-      </button>
-      {pagesArray.map((pg) => (
-        <PageButton
-          key={pg}
-          pg={pg}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-        />
-      ))}
-      <button
-        onClick={nextPage}
-        disabled={isPreviousData || page === Property?.data?.total_pages}
-        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
-          isPreviousData || page === Property?.data?.total_pages
-            ? "text-[#6a6a6a]"
-            : "border-[#FB6B01] text-[#FB6B01]"
-        }`}
-      >
-        <MdOutlineKeyboardArrowRight />
-      </button>
-    </nav>
-  );
-
-  // const [data, setData] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   fetch(url, {
-  //     method: "GET",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data));
-  // }, []);
-  // console.log(data?.data);
   return (
     <div className="lg:max-w-[1110px] mx-auto px-[15px] my-[30px]">
       <h1 className="font-bold text-3xl mb-16">100 Properties for salse</h1>
@@ -101,7 +52,15 @@ const ForSale = () => {
               <ForSaleCard {...data} key={data._id} />
             ))}
           </div>
-          {nav}
+          <PaginationNav
+            prevPage={prevPage}
+            nextPage={nextPage}
+            isPreviousData={isPreviousData}
+            page={page}
+            setPage={setPage}
+            pagesArray={pagesArray}
+            total_pages={Property?.data?.total_pages}
+          />
         </div>
       </div>
     </div>

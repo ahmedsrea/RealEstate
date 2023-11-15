@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { FaBuilding } from "react-icons/fa6";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
 import { Link } from "react-router-dom";
-import PageButton from "../../components/PageButton";
 import { useState } from "react";
+import PaginationNav from "../../components/PaginationNav";
 
 type Data = {
   title: string;
@@ -39,41 +35,6 @@ const Developers = () => {
   const pagesArray = Array(devs?.data?.data.total_pages)
     .fill()
     .map((_, index) => index + 1);
-
-  const nav = (
-    <nav className="flex justify-center gap-2 mt-[65px] mb-[75px] pt-5 border-t border-[#DDDDDD]">
-      <button
-        onClick={prevPage}
-        disabled={isPreviousData || page === 1}
-        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
-          isPreviousData || page !== 1
-            ? "border-[#FB6B01] text-[#FB6B01]"
-            : "text-[#6a6a6a]"
-        }`}
-      >
-        <MdOutlineKeyboardArrowLeft />
-      </button>
-      {pagesArray.map((pg) => (
-        <PageButton
-          key={pg}
-          pg={pg}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-        />
-      ))}
-      <button
-        onClick={nextPage}
-        disabled={isPreviousData || page === devs?.data?.total_pages}
-        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
-          isPreviousData || page === devs?.data?.total_pages
-            ? "text-[#6a6a6a]"
-            : "border-[#FB6B01] text-[#FB6B01]"
-        }`}
-      >
-        <MdOutlineKeyboardArrowRight />
-      </button>
-    </nav>
-  );
 
   return (
     <div className="mt-9 xl:max-w-[1400px] w-full mx-auto px-[15px]">
@@ -117,7 +78,15 @@ const Developers = () => {
           </div>
         ))}
       </div>
-      {nav}
+      <PaginationNav
+        prevPage={prevPage}
+        nextPage={nextPage}
+        isPreviousData={isPreviousData}
+        page={page}
+        setPage={setPage}
+        pagesArray={pagesArray}
+        total_pages={devs?.data?.total_pages}
+      />
     </div>
   );
 };

@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { FaBuilding } from "react-icons/fa6";
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
 import { Link } from "react-router-dom";
+import PageButton from "../../components/PageButton";
+import { useState } from "react";
 
 type Data = {
   title: string;
@@ -11,15 +17,63 @@ type Data = {
 };
 
 const Developers = () => {
-  const url = "http://localhost:3000/api/v1/developers";
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["devs"],
+  const [page, setPage] = useState(1);
+  const url = `http://localhost:3000/api/v1/developers?page=${page}`;
+  const {
+    isLoading,
+    error,
+    data: devs,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ["devs", { page }],
     queryFn: () => axios.get(url),
+    keepPreviousData: true,
     networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading...";
   if (error) return "An error has occured" + error;
+
+  const nextPage = () => setPage((prev) => prev + 1);
+  const prevPage = () => setPage((prev) => prev - 1);
+  const pagesArray = Array(devs?.data?.data.total_pages)
+    .fill()
+    .map((_, index) => index + 1);
+
+  const nav = (
+    <nav className="flex justify-center gap-2 mt-[65px] mb-[75px] pt-5 border-t border-[#DDDDDD]">
+      <button
+        onClick={prevPage}
+        disabled={isPreviousData || page === 1}
+        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
+          isPreviousData || page !== 1
+            ? "border-[#FB6B01] text-[#FB6B01]"
+            : "text-[#6a6a6a]"
+        }`}
+      >
+        <MdOutlineKeyboardArrowLeft />
+      </button>
+      {pagesArray.map((pg) => (
+        <PageButton
+          key={pg}
+          pg={pg}
+          setPage={setPage}
+          isPreviousData={isPreviousData}
+        />
+      ))}
+      <button
+        onClick={nextPage}
+        disabled={isPreviousData || page === devs?.data?.total_pages}
+        className={`border px-[12px] py-2 rounded-md hover:bg-[#FB6B01] hover:text-white hover:opacity-75 transition duration-300 ${
+          isPreviousData || page === devs?.data?.total_pages
+            ? "text-[#6a6a6a]"
+            : "border-[#FB6B01] text-[#FB6B01]"
+        }`}
+      >
+        <MdOutlineKeyboardArrowRight />
+      </button>
+    </nav>
+  );
 
   return (
     <div className="mt-9 xl:max-w-[1400px] w-full mx-auto px-[15px]">
@@ -33,7 +87,7 @@ const Developers = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-[120px] mb-16">
-        {data?.data?.data.map(({ title, slug, images, _id }: Data) => (
+        {devs?.data?.data.map(({ title, slug, images, _id }: Data) => (
           <div
             className="relative h-[250px] flex flex-col items-center"
             key={_id}
@@ -63,6 +117,7 @@ const Developers = () => {
           </div>
         ))}
       </div>
+      {nav}
     </div>
   );
 };

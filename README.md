@@ -2,7 +2,16 @@
 
 This project is a practice on MongoDB, ExpressJS, and React, inspired by [realestate.eg.](https://realestate.eg/)
 
-## Know Issues
+## Features
+
+- Data Fetching, Caching and Mutation using **React Query**
+- Route handlers
+- API Routes
+- ORM using **Mongoose**
+- Database on **MongoDB Atlas**
+- Styled using **Tailwind CSS**
+
+## Known Issues
 
 A list of things not working right now:
 
@@ -21,3 +30,7 @@ npm install
 ```sh
 npm run dev
 ```
+
+## License
+
+Licensed under the [MIT license](https://github.com/shadcn/taxonomy/blob/main/LICENSE.md).

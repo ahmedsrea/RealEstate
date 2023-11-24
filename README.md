@@ -10,6 +10,11 @@ This project is a practice on MongoDB, ExpressJS, and React, inspired by [reales
 - ORM using **Mongoose**
 - Database on **MongoDB Atlas**
 - Styled using **Tailwind CSS**
+  Server:
+- Implement Rate Limiting
+- Security HTTP Headers
+- Data Sanitization
+- Prevent Parameter Pollution
 
 ## Known Issues
 

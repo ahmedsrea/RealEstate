@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+
 const MobileMenu = () => {
   const [openMenu, setOpenMenu] = useState(false);
+
   return (
-    <div className="xl:hidden mr-2">
+    <div className="xl:hidden">
       <div onClick={() => setOpenMenu((value) => !value)}>
         <AiOutlineMenu className="text-[35px] text-[#019DFB] cursor-pointer" />
       </div>
 
       {openMenu && (
         <div
-          className={`flex flex-col items-start p-6 text-[#2D3436] gap-[21px] font-medium text-base absolute top-[65px] left-0 bg-[#F2F2F2] w-[100vw] z-20 openMenu`}
+          className={`flex flex-col items-start p-6 text-[#2D3436] gap-[21px] font-medium text-base absolute top-[65px] left-0 bg-[#F2F2F2] w-[100vw] z-20`}
         >
           <Link to="compounds" className="hover:text-[#019DFB]">
             Egypt's Compounds

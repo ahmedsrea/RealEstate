@@ -1,45 +1,21 @@
-interface InputProps {
-  name: string;
-  id: string;
-  htmlFor: string;
-  label: string;
-  value: boolean | string;
-  onChange: (e: any) => void;
-}
+import * as React from "react";
 
-const CheckBox: React.FC<InputProps> = ({
-  name,
-  id,
-  htmlFor,
-  label,
-  value,
-  onChange,
-}) => {
-  return (
-    <div className="flex items-center px-4 border border-gray-200 rounded">
+export interface CheckBoxProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
+  ({ ...props }, ref) => {
+    return (
       <input
-        id={id}
         type="checkbox"
-        value={value}
-        name={name}
-        onChange={onChange}
         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+        ref={ref}
+        {...props}
       />
+    );
+  }
+);
 
-      <label
-        htmlFor={htmlFor}
-        className="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-      >
-        {label}
-      </label>
-    </div>
-  );
-};
+CheckBox.displayName = "Checkbox";
 
-{
-  /* <div className="flex flex-row gap-1">
-      <input type="checkbox" name={name} id={id} value={value} />
-      <label htmlFor={htmlFor}>{label}</label>
-    </div> */
-}
-export default CheckBox;
+export { CheckBox };

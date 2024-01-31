@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 process.on("uncaughtException", (err) => {
@@ -8,9 +9,7 @@ process.on("uncaughtException", (err) => {
 
 const app = require("./app");
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/realestate")
-  .catch((error) => handleError(error));
+mongoose.connect(process.env.MongoDB_URI).catch((error) => console.log(error));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

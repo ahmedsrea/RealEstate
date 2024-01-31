@@ -9,10 +9,13 @@ import ForSale from "./pages/For-sale/ForSale";
 import Blog from "./pages/Blog/Blog";
 import NewBlog from "./pages/Blog/NewBlog";
 import Blogs from "./pages/Blog/Blogs";
+import ManageBlogs from "./pages/Dashboard/Blogs/ManageBlogs";
 import NotFound from "./components/NotFound";
 import Developers from "./pages/developers/Developers";
 import DevPage from "./pages/developers/DevPage";
 import ScrollToTop from "./components/ScrollToTop";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import ManageProducts from "./pages/Dashboard/Products/ManageProducts";
 
 function App() {
   return (
@@ -25,6 +28,10 @@ function App() {
           <Route path="/:slug" element={<Show />} />
           <Route path="/compounds" element={<Compounds />} />
           <Route path="/search" element={<Compounds />} />
+          <Route path="/dashboard/*" element={<Dashboard />}>
+            <Route path="products" element={<ManageProducts />} />
+            <Route path="blogs" element={<ManageBlogs />} />
+          </Route>
           <Route path="/new" element={<AddItem />} />
           <Route path="/for-sale" element={<ForSale />} />
           <Route path="/blog" element={<Blogs />} />

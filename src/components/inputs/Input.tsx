@@ -1,56 +1,22 @@
-interface InputProps {
-  id: string;
-  type: string;
-  name: string;
-  required?: boolean;
-  onChange?: (e: any) => void;
-  value?: string;
-  accept?: string;
-  multiple?: boolean;
-  htmlFor?: string;
-  label?: string;
-  placeholder?: string;
-}
+import * as React from "react";
 
-const Input: React.FC<InputProps> = ({
-  id,
-  type,
-  name,
-  required,
-  onChange,
-  value,
-  accept,
-  multiple,
-  htmlFor,
-  label,
-  placeholder,
-}) => {
-  return (
-    <div className="flex flex-col mb-4">
-      {label && (
-        <label
-          htmlFor={htmlFor}
-          className="block mb-2 text-base font-medium text-gray-900"
-        >
-          {label}
-        </label>
-      )}
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ type, ...props }, ref) => {
+    return (
       <input
         type={type}
-        name={name}
-        id={id}
-        required={required}
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-        accept={accept}
-        multiple={multiple}
         className={`${
           type === "file" ? "w-fit" : "w-full"
         } p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500`}
+        ref={ref}
+        {...props}
       />
-    </div>
-  );
-};
+    );
+  }
+);
+Input.displayName = "Input";
 
-export default Input;
+export { Input };

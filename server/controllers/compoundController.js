@@ -1,5 +1,6 @@
 const CompoundsModel = require("../models/compounds");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 exports.getAllCompounds = catchAsync(async (req, res, next) => {
   const queryObj = { ...req.query };
@@ -124,5 +125,18 @@ exports.getAllProperty = catchAsync(async (req, res, next) => {
     total,
     total_pages: totalPages,
     data: compounds,
+  });
+});
+
+exports.deleteCompound = catchAsync(async (req, res, next) => {
+  const compound = await CompoundsModel.findByIdAndDelete(req.params.id);
+
+  if (!compound) {
+    return next(new AppError("No document found with that ID", 404));
+  }
+
+  res.status(204).json({
+    status: "success",
+    data: null,
   });
 });

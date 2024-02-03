@@ -9,5 +9,6 @@ router
   .post(compoundController.createCompound);
 
 router.route("/:slug").get(compoundController.getCompound);
+router.route("/:id").delete(compoundController.deleteCompound);
 
 module.exports = router;

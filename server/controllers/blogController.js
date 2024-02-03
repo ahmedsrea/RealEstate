@@ -1,5 +1,6 @@
 const BlogsModel = require("../models/blogs");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 exports.getAllBlogs = catchAsync(async (req, res, next) => {
   const total = await BlogsModel.countDocuments();
@@ -31,24 +32,20 @@ exports.getBlog = catchAsync(async (req, res, next) => {
 });
 
 exports.createBlog = catchAsync(async (req, res, next) => {
-  let path = "";
-  if (req.files) {
-    req.files.forEach(function (files) {
-      path = path + files.path + ",";
-    });
-    path = path.substring(0, path.lastIndexOf(","));
+  const newBlog = await BlogsModel.create(req.body);
+
+  res.status(201).json({ status: "success", data: newBlog });
+});
+
+exports.deleteBlog = catchAsync(async (req, res, next) => {
+  const blog = await BlogsModel.findByIdAndDelete(req.params.id);
+
+  if (!blog) {
+    return next(new AppError("No document found with that ID", 404));
   }
-  let blog = {
-    blog_title: req.body.blog_title,
-    title: req.body.title,
-    price: req.body.price,
-    status: req.body.status,
-    del_date: req.body.del_date,
-    dev_by: req.body.dev_by,
-    description: req.body.description,
-    markdown: req.body.markdown,
-    images: path,
-  };
-  await BlogsModel.create(blog);
-  res.json({ status: "ok" });
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
 });

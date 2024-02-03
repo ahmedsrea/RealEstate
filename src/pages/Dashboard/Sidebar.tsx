@@ -28,6 +28,19 @@ export default function Sidebar() {
         </li>
         <li>
           <Link
+            to={"add-product"}
+            className={
+              location.pathname === "/dashboard/add-product"
+                ? activeLink
+                : inactiveLink
+            }
+          >
+            <TbSmartHome size="18" className="mb-[2px]" />
+            Add Product
+          </Link>
+        </li>
+        <li>
+          <Link
             to={"blogs"}
             className={
               location.pathname === "/dashboard/blogs"
@@ -37,6 +50,19 @@ export default function Sidebar() {
           >
             <GrBlog size="18" className="mb-[2px]" />
             Blogs
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={"add-blog"}
+            className={
+              location.pathname === "/dashboard/add-blog"
+                ? activeLink
+                : inactiveLink
+            }
+          >
+            <GrBlog size="18" className="mb-[2px]" />
+            Add Blog
           </Link>
         </li>
       </ul>

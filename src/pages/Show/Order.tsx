@@ -1,4 +1,4 @@
-import Input from "../../components/inputs/Input";
+import { Input } from "../../components/inputs/Input";
 
 type order = {
   title: string;
@@ -11,9 +11,9 @@ const Order = ({ title }: order) => {
         <h1 className="font-bold text-2xl text-center mb-2">{title}</h1>
         <form
           action=""
-          className="w-full flex sm:flex-row flex-col items-center justify-center"
+          className="w-full flex sm:flex-row flex-col items-center justify-center gap-2"
         >
-          <div className="flex sm:flex-row flex-col flex-wrap items-center justify-center">
+          <div className="flex sm:flex-row flex-col flex-wrap items-center justify-center gap-2">
             <Input
               type="string"
               id="fullname"
@@ -27,7 +27,7 @@ const Order = ({ title }: order) => {
               placeholder="Phone Number"
             />
           </div>
-          <button className="bg-[#FB6B01] hover:bg-white hover:text-[#FB6B01] py-2 px-6 rounded-md transition duration-300">
+          <button className="bg-[#FB6B01] hover:bg-white hover:text-[#FB6B01] py-2 px-6 rounded-md transition duration-300 mb-4">
             Order Now
           </button>
         </form>

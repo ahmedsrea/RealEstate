@@ -4,20 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .filter-select {
-    @apply p-2 my-3 rounded-md bg-[#FAFBFC] border border-[#ddd] hover:border-[#6C7072] transition duration-300 focus:shadow-[0_0_0_0.2rem_rgba(0,123,255,.25)] focus:border-none focus:outline-none;
-  }
-  .checkbox-label {
-    @apply w-full py-3 px-4 ml-2 text-sm font-medium text-gray-900 flex items-center gap-2;
-  }
+.filter-select {
+  @apply p-2 my-3 rounded-md bg-[#FAFBFC] border border-[#ddd] hover:border-[#6C7072] transition duration-300 focus:shadow-[0_0_0_0.2rem_rgba(0,123,255,.25)] focus:border-none focus:outline-none;
+}
+.checkbox-label {
+  @apply w-full py-3 px-4 ml-2 text-sm font-medium text-gray-900 flex items-center gap-2;
 }
 
+table.basic {
+  @apply w-full bg-white rounded-md shadow-sm;
+}
+table.basic thead tr td,
+table.basic thead tr th {
+  @apply text-sm text-gray-600 uppercase border-b border-gray-200 px-4 py-2;
+}
+table.basic tr td {
+  @apply px-4 py-1 text-center;
+}
+table.basic a {
+  @apply text-white px-4 py-1 rounded-sm inline-flex mx-1 items-center gap-1 text-sm;
+}
 body {
   font-family: "Nunito Sans", sans-serif;
 }
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+.btn-primary {
+  color: white;
+  padding: 4px 16px;
+  border-radius: 2px;
+  margin: 0 4px;
+  font-size: 14px;
 }
 
 .img-clip {

@@ -3,7 +3,6 @@ import Navbar from "./components/navbar/Navbar";
 import Compounds from "./pages/Compounds/Compounds";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer";
-import AddItem from "./components/AddItem";
 import Show from "./pages/Show/Show";
 import ForSale from "./pages/For-sale/ForSale";
 import Blog from "./pages/Blog/Blog";
@@ -16,6 +15,8 @@ import DevPage from "./pages/developers/DevPage";
 import ScrollToTop from "./components/ScrollToTop";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ManageProducts from "./pages/Dashboard/Products/ManageProducts";
+import NewProduct from "./pages/Dashboard/Products/NewProduct";
+import AddBlog from "./pages/Dashboard/Blogs/NewBlog";
 
 function App() {
   return (
@@ -30,13 +31,13 @@ function App() {
           <Route path="/search" element={<Compounds />} />
           <Route path="/dashboard/*" element={<Dashboard />}>
             <Route path="products" element={<ManageProducts />} />
+            <Route path="add-product" element={<NewProduct />} />
             <Route path="blogs" element={<ManageBlogs />} />
+            <Route path="add-blog" element={<AddBlog />} />
           </Route>
-          <Route path="/new" element={<AddItem />} />
           <Route path="/for-sale" element={<ForSale />} />
           <Route path="/blog" element={<Blogs />} />
           <Route path="/blog/:slug" element={<Blog />} />
-          <Route path="/blog/new" element={<NewBlog />} />
           <Route path="/developers" element={<Developers />} />
           <Route path="/developers/:slug" element={<DevPage />} />
           <Route path="*" element={<NotFound />} />

@@ -65,6 +65,32 @@ export default function Sidebar() {
             Add Blog
           </Link>
         </li>
+        <li>
+          <Link
+            to={"developers"}
+            className={
+              location.pathname === "/dashboard/developers"
+                ? activeLink
+                : inactiveLink
+            }
+          >
+            <GrBlog size="18" className="mb-[2px]" />
+            Developers
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={"add-dev"}
+            className={
+              location.pathname === "/dashboard/add-dev"
+                ? activeLink
+                : inactiveLink
+            }
+          >
+            <GrBlog size="18" className="mb-[2px]" />
+            Add Developer
+          </Link>
+        </li>
       </ul>
     </div>
   );

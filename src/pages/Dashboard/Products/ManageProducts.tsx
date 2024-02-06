@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import NotFound from "../../../components/NotFound";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface Product {
   title: string;
@@ -77,7 +77,6 @@ export default function ManageProducts({ swal }: { swal: any }) {
           })}
         </tbody>
       </table>
-      <Outlet />
     </section>
   );
 }

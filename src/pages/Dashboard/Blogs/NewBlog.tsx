@@ -25,6 +25,7 @@ export default function AddBlog() {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [error, updateError] = useState<Error | undefined>(undefined);
   const [urlString, setUrlString] = useState("");
   function handleonUpload(error: Error | undefined, result, widget) {
@@ -54,7 +55,7 @@ export default function AddBlog() {
               { headers: { "Content-Type": "application/json" } }
             )
             .then((res) => console.log(res.data))
-            .catch((error) => console.log(error));
+            .catch((error) => setErrorMessage(error.response.data.message));
         })}
       >
         <FormInput
@@ -156,6 +157,12 @@ export default function AddBlog() {
               </div>
             ))}
           </div>
+        )}
+
+        {errorMessage && (
+          <p className="bg-red-200 rounded-sm px-2 py-1 text-sm">
+            {errorMessage}
+          </p>
         )}
         <button
           type="submit"

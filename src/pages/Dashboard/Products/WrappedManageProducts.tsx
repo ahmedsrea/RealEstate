@@ -1,5 +1,5 @@
 import { withSwal } from "react-sweetalert2";
-import ManageProducts from "./ManageProducts"; // Adjust the path as necessary
+import ManageProducts from "./ManageProducts";
 
 const WrappedManageProducts = withSwal(({ swal }, ref) => (
   <ManageProducts swal={swal} />

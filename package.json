@@ -21,6 +21,7 @@
     "react-icons": "^4.10.1",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.15.0",
+    "react-sweetalert2": "^0.6.0",
     "swiper": "^10.3.1"
   },
   "devDependencies": {

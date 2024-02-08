@@ -7,17 +7,24 @@ interface Product {
   title: string;
   images: string;
   _id: string;
+  data: Product[];
 }
 
 export default function ManageProducts({ swal }: { swal: any }) {
   const url = `http://localhost:3000/api/v1/compounds`;
+  const fetchProducts = async (): Promise<Product> => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+
   const {
     isLoading,
     error,
     data: Products,
+    refetch,
   } = useQuery({
     queryKey: ["ManageProducts"],
-    queryFn: () => axios.get(url),
+    queryFn: () => fetchProducts(),
   });
   if (isLoading) return "Loading....";
   if (error) return <NotFound />;
@@ -36,6 +43,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
       .then(async (res: { isConfirmed: boolean }) => {
         if (res.isConfirmed) {
           await axios.delete(`${url}/${product._id}`);
+          refetch();
         }
       });
   }
@@ -51,30 +59,36 @@ export default function ManageProducts({ swal }: { swal: any }) {
           </tr>
         </thead>
         <tbody>
-          {Products?.data.data.map((product: Product) => {
-            const image = product.images?.split(",");
-            return (
-              <tr key={product._id}>
-                <td>
-                  <div className="w-[60px] h-[50px]">
-                    <img src={image[0]} alt="title" className="w-full h-full" />
-                  </div>
-                </td>
-                <td>{product.title}</td>
-                <td>
-                  <Link to="" className="bg-slate-500">
-                    Edit
-                  </Link>
-                  <button
-                    className="btn-primary bg-red-700"
-                    onClick={() => deleteProduct(product)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {Array.isArray(Products?.data)
+            ? Products?.data?.map((product: Product) => {
+                const image = product.images?.split(",");
+                return (
+                  <tr key={product._id}>
+                    <td>
+                      <div className="w-[60px] h-[50px]">
+                        <img
+                          src={image[0]}
+                          alt="title"
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </td>
+                    <td>{product.title}</td>
+                    <td>
+                      <Link to="" className="bg-slate-500">
+                        Edit
+                      </Link>
+                      <button
+                        className="btn-primary bg-red-700"
+                        onClick={() => deleteProduct(product)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            : "There's no data to show"}
         </tbody>
       </table>
     </section>

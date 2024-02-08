@@ -47,22 +47,21 @@ export default function ManageProducts({ swal }: { swal: any }) {
         }
       });
   }
-
   return (
     <section className="w-full px-4 pt-5 max-w-[700px]">
-      <table className="basic">
-        <thead>
-          <tr>
-            <td>image</td>
-            <td>title</td>
-            <td>Action</td>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(Products?.data)
-            ? Products?.data?.map((product: Product) => {
-                const image = product.images?.split(",");
-                return (
+      {Array.isArray(Products?.data) && Products?.data.length > 1
+        ? Products.data?.map((product: Product) => {
+            const image = product.images?.split(",");
+            return (
+              <table className="basic">
+                <thead>
+                  <tr>
+                    <td>image</td>
+                    <td>title</td>
+                    <td>Action</td>
+                  </tr>
+                </thead>
+                <tbody>
                   <tr key={product._id}>
                     <td>
                       <div className="w-[60px] h-[50px]">
@@ -86,11 +85,11 @@ export default function ManageProducts({ swal }: { swal: any }) {
                       </button>
                     </td>
                   </tr>
-                );
-              })
-            : "There's no data to show"}
-        </tbody>
-      </table>
+                </tbody>
+              </table>
+            );
+          })
+        : "There no data to show"}
     </section>
   );
 }

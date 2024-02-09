@@ -7,17 +7,24 @@ interface Blogs {
   title: string;
   images: string;
   _id: string;
+  data: Blogs[];
 }
 
 export default function ManageBlogs({ swal }) {
   const url = `http://localhost:3000/api/v1/blogs`;
+  const fetchBlogs = async (): Promise<Blogs> => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+
   const {
     isLoading,
     error,
-    data: Products,
+    data: Blogs,
+    refetch,
   } = useQuery({
-    queryKey: ["ManageProducts"],
-    queryFn: () => axios.get(url),
+    queryKey: ["ManageBlogs"],
+    queryFn: () => fetchBlogs(),
   });
   if (isLoading) return "Loading....";
   if (error) return <NotFound />;
@@ -36,6 +43,7 @@ export default function ManageBlogs({ swal }) {
       .then(async (res: { isConfirmed: boolean }) => {
         if (res.isConfirmed) {
           await axios.delete(`${url}/${blog._id}`);
+          refetch();
         }
       });
   }
@@ -51,32 +59,41 @@ export default function ManageBlogs({ swal }) {
           </tr>
         </thead>
         <tbody>
-          {Products?.data.data.map((blog: Blogs) => {
-            const image = blog.images?.split(",");
-            return (
-              <tr key={blog._id}>
-                <td>
-                  <div className="w-[60px] h-[50px]">
-                    <img src={image[0]} alt="title" className="w-full h-full" />
-                  </div>
-                </td>
-                <td>{blog.title}</td>
-                <td>
-                  <Link to="" className="bg-slate-500">
-                    Edit
-                  </Link>
-                  <button
-                    className="btn-primary bg-red-700"
-                    onClick={() => deleteBlog(blog)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {Array.isArray(Blogs?.data) &&
+            Blogs?.data.length > 0 &&
+            Blogs?.data?.map((blog: Blogs) => {
+              const image = blog.images?.split(",");
+              return (
+                <tr key={blog._id}>
+                  <td>
+                    <div className="w-[60px] h-[50px]">
+                      <img
+                        src={image[0]}
+                        alt="title"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </td>
+                  <td>{blog.title}</td>
+                  <td>
+                    <Link to="" className="bg-slate-500">
+                      Edit
+                    </Link>
+                    <button
+                      className="btn-primary bg-red-700"
+                      onClick={() => deleteBlog(blog)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
+      {Blogs?.data && Blogs?.data.length < 1 && (
+        <div>There is no data to show</div>
+      )}
     </section>
   );
 }

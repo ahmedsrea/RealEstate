@@ -7,10 +7,16 @@ interface Developer {
   title: string;
   images: string;
   _id: string;
+  data: Developer[];
 }
 
 export default function ManageDevelopers({ swal }) {
   const url = "http://localhost:3000/api/v1/developers";
+  const fetchDevs = async (): Promise<Developer> => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+
   const {
     isLoading,
     error,
@@ -18,7 +24,7 @@ export default function ManageDevelopers({ swal }) {
     refetch,
   } = useQuery({
     queryKey: ["ManageDevelopers"],
-    queryFn: () => axios.get(url),
+    queryFn: () => fetchDevs(),
   });
   if (isLoading) return "Loading...";
   if (error) return <NotFound />;
@@ -48,36 +54,45 @@ export default function ManageDevelopers({ swal }) {
           <tr>
             <td>image</td>
             <td>title</td>
-            <td>15</td>
+            <td>Action</td>
           </tr>
         </thead>
         <tbody>
-          {Developers?.data.data.map((dev: Developer) => {
-            const image = dev.images?.split(",");
-            return (
-              <tr key={dev._id}>
-                <td>
-                  <div className="w-[60px] h-[50px]">
-                    <img src={image[0]} alt="title" className="w-full h-full" />
-                  </div>
-                </td>
-                <td>{dev.title}</td>
-                <td>
-                  <Link to="" className="bg-slate-500">
-                    Edit
-                  </Link>
-                  <button
-                    className="btn-primary bg-red-700"
-                    onClick={() => deleteDev(dev)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {Array.isArray(Developers?.data) &&
+            Developers?.data.length > 0 &&
+            Developers?.data.map((dev: Developer) => {
+              const image = dev.images?.split(",");
+              return (
+                <tr key={dev._id}>
+                  <td>
+                    <div className="w-[60px] h-[50px]">
+                      <img
+                        src={image[0]}
+                        alt="title"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </td>
+                  <td>{dev.title}</td>
+                  <td>
+                    <Link to="" className="bg-slate-500">
+                      Edit
+                    </Link>
+                    <button
+                      className="btn-primary bg-red-700"
+                      onClick={() => deleteDev(dev)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
+      {Developers?.data &&
+        Developers.data.length < 1 &&
+        "There is no data to show"}
     </section>
   );
 }

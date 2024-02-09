@@ -49,47 +49,48 @@ export default function ManageProducts({ swal }: { swal: any }) {
   }
   return (
     <section className="w-full px-4 pt-5 max-w-[700px]">
-      {Array.isArray(Products?.data) && Products?.data.length > 1
-        ? Products.data?.map((product: Product) => {
-            const image = product.images?.split(",");
-            return (
-              <table className="basic">
-                <thead>
-                  <tr>
-                    <td>image</td>
-                    <td>title</td>
-                    <td>Action</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr key={product._id}>
-                    <td>
-                      <div className="w-[60px] h-[50px]">
-                        <img
-                          src={image[0]}
-                          alt="title"
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </td>
-                    <td>{product.title}</td>
-                    <td>
-                      <Link to="" className="bg-slate-500">
-                        Edit
-                      </Link>
-                      <button
-                        className="btn-primary bg-red-700"
-                        onClick={() => deleteProduct(product)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            );
-          })
-        : "There no data to show"}
+      <table className="basic">
+        <thead>
+          <tr>
+            <td>image</td>
+            <td>title</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.isArray(Products?.data) &&
+            Products?.data.length > 1 &&
+            Products.data?.map((product: Product) => {
+              const image = product.images?.split(",");
+              return (
+                <tr key={product._id}>
+                  <td>
+                    <div className="w-[60px] h-[50px]">
+                      <img
+                        src={image[0]}
+                        alt="title"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </td>
+                  <td>{product.title}</td>
+                  <td>
+                    <Link to="" className="bg-slate-500">
+                      Edit
+                    </Link>
+                    <button
+                      className="btn-primary bg-red-700"
+                      onClick={() => deleteProduct(product)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+      {Products?.data && Products.data.length < 1 && "There is no data to show"}
     </section>
   );
 }

@@ -12,6 +12,7 @@ const globalErrorHandler = require("./controllers/errorController");
 const devRoutes = require("./routes/devRoutes");
 const compoundRoutes = require("./routes/compoundRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const userRoutes = require("./routes/userRoutes");
 const CompoundsModel = require("./models/compounds");
 
 // Set security HTTP headers
@@ -43,6 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/compounds", compoundRoutes);
 app.use("/api/v1/developers", devRoutes);
 app.use("/api/v1/blogs", blogRoutes);
+app.use("/api/v1/users", userRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

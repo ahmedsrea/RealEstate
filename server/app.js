@@ -13,7 +13,6 @@ const devRoutes = require("./routes/devRoutes");
 const compoundRoutes = require("./routes/compoundRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const userRoutes = require("./routes/userRoutes");
-const CompoundsModel = require("./models/compounds");
 
 // Set security HTTP headers
 app.use(helmet());
@@ -36,7 +35,7 @@ app.use(
   })
 );
 
-app.use(cors()); // fuck you
+app.use(cors({ credentials: true, origin: true })); // fuck you
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true }));
 

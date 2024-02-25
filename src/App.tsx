@@ -18,6 +18,9 @@ import WrappedManageProducts from "./pages/Dashboard/Products/WrappedManageProdu
 import NewDeveloper from "./pages/Dashboard/Developers/NewDeveloper";
 import WrappedManageDevelopers from "./pages/Dashboard/Developers/WrappedManageDevelopers";
 import WrappedManageBlogs from "./pages/Dashboard/Blogs/WrappedManageBlogs";
+import Login from "./pages/Dashboard/Login";
+import RequireAuth from "./pages/Dashboard/RequireAuth";
+import PersistLogin from "./pages/Dashboard/PersistLogin";
 
 function App() {
   return (
@@ -30,14 +33,25 @@ function App() {
           <Route path="/:slug" element={<Show />} />
           <Route path="/compounds" element={<Compounds />} />
           <Route path="/search" element={<Compounds />} />
-          <Route path="/dashboard/*" element={<Dashboard />}>
-            <Route path="products" element={<WrappedManageProducts />} />
-            <Route path="add-product" element={<NewProduct />} />
-            <Route path="blogs" element={<WrappedManageBlogs />} />
-            <Route path="add-blog" element={<AddBlog />} />
-            <Route path="developers" element={<WrappedManageDevelopers />} />
-            <Route path="add-dev" element={<NewDeveloper />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Routes */}
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth />}>
+              <Route path="/dashboard/*" element={<Dashboard />}>
+                <Route path="products" element={<WrappedManageProducts />} />
+                <Route path="add-product" element={<NewProduct />} />
+                <Route path="blogs" element={<WrappedManageBlogs />} />
+                <Route path="add-blog" element={<AddBlog />} />
+                <Route
+                  path="developers"
+                  element={<WrappedManageDevelopers />}
+                />
+                <Route path="add-dev" element={<NewDeveloper />} />
+              </Route>
+            </Route>
           </Route>
+
           <Route path="/for-sale" element={<ForSale />} />
           <Route path="/blog" element={<Blogs />} />
           <Route path="/blog/:slug" element={<Blog />} />

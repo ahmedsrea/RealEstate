@@ -5,6 +5,7 @@ import { Textarea } from "../../../components/inputs/Textarea";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../components/FormInput";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const propType = [
   { title: "Property", value: "property" },
@@ -47,6 +48,7 @@ export default function NewProduct() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+  const [errorMessage, setErrorMessage] = useState("");
   const [error, updateError] = useState<Error | undefined>(undefined);
   const [urlString, setUrlString] = useState("");
   function handleonUpload(error: Error | undefined, result, widget) {
@@ -77,8 +79,13 @@ export default function NewProduct() {
                   headers: { "Content-Type": "application/json" },
                 }
               )
-              .then((res) => console.log(res.data))
-              .catch((error) => console.log(error));
+              .then((res) => {
+                console.log(res);
+                if (res.status === 201) {
+                  return <Navigate to={"/products"} replace={true} />;
+                }
+              })
+              .catch((error) => setErrorMessage(error.response.data.message));
           })}
         >
           <div className="flex flex-col gap-3 w-full">
@@ -319,6 +326,11 @@ export default function NewProduct() {
             />
           </div>
 
+          {errorMessage && (
+            <p className="bg-red-200 rounded-sm px-2 py-1 text-sm">
+              {errorMessage}
+            </p>
+          )}
           <button className="bg-[#FB6B01] text-white p-2 rounded-md">
             Submit
           </button>

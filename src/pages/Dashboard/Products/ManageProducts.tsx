@@ -59,7 +59,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
         </thead>
         <tbody>
           {Array.isArray(Products?.data) &&
-            Products?.data.length > 1 &&
+            Products?.data.length > 0 &&
             Products.data?.map((product: Product) => {
               const image = product.images?.split(",");
               return (

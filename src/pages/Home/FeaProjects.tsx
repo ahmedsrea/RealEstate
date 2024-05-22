@@ -5,7 +5,6 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Reveal } from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
@@ -13,6 +12,7 @@ import UpperBg from "../../components/UpperBg";
 import LowerBg from "../../components/LowerBg";
 import { SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
+import axios from "../../api/axios";
 
 type Data = {
   title: string;
@@ -25,10 +25,9 @@ type Data = {
 };
 
 const FeaProjects = () => {
-  const url = "http://localhost:3000/api/v1/compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["showItems"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get("/compounds"),
     networkMode: "offlineFirst",
   });
 

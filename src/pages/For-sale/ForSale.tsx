@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import ForSaleCard from "../../components/ForSaleCard";
 import SaleFilter from "./SaleFilter";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import PaginationNav from "../../components/PaginationNav";
+import axios from "../../api/axios";
 
 const ForSale = () => {
   const [page, setPage] = useState(1);
-  const url = `http://localhost:3000/api/v1/compounds/get-property?page=${page}`;
   const {
     isLoading,
     error,
@@ -16,7 +15,7 @@ const ForSale = () => {
     isPreviousData,
   } = useQuery({
     queryKey: ["showProperty", { page }],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/compounds/get-property?page=${page}`),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });

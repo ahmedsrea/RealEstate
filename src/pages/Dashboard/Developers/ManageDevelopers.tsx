@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import NotFound from "../../../components/NotFound";
 import { Link } from "react-router-dom";
+import axios from "../../../api/axios";
 
 interface Developer {
   title: string;
@@ -11,9 +11,8 @@ interface Developer {
 }
 
 export default function ManageDevelopers({ swal }) {
-  const url = "http://localhost:3000/api/v1/developers";
   const fetchDevs = async (): Promise<Developer> => {
-    const response = await axios.get(url);
+    const response = await axios.get("/developers");
     return response.data;
   };
 
@@ -42,7 +41,7 @@ export default function ManageDevelopers({ swal }) {
       })
       .then(async (res: { isConfirmed: boolean }) => {
         if (res.isConfirmed) {
-          await axios.delete(`${url}/${dev._id}`);
+          await axios.delete(`/developers/${dev._id}`);
           refetch();
         }
       });

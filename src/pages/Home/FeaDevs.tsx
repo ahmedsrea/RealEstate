@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { keyframes } from "@emotion/react";
 import { Reveal } from "react-awesome-reveal";
+import axios from "../../api/axios";
 
 type Data = {
   title: string;
@@ -13,10 +13,9 @@ type Data = {
 };
 
 const FeaDevs = () => {
-  const url = "http://localhost:3000/api/v1/developers";
   const { isLoading, error, data } = useQuery({
     queryKey: ["devs"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get("/developers"),
     networkMode: "offlineFirst",
   });
 

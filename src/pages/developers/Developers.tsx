@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { FaBuilding } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PaginationNav from "../../components/PaginationNav";
+import axios from "../../api/axios";
 
 type Data = {
   title: string;
@@ -14,7 +14,6 @@ type Data = {
 
 const Developers = () => {
   const [page, setPage] = useState(1);
-  const url = `http://localhost:3000/api/v1/developers?page=${page}`;
   const {
     isLoading,
     error,
@@ -22,7 +21,7 @@ const Developers = () => {
     isPreviousData,
   } = useQuery({
     queryKey: ["devs", { page }],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/developers?page=${page}`),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });

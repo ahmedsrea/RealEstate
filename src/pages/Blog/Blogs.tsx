@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
-
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import axios from "../../api/axios";
 
 const Blogs = () => {
   const [page, setPage] = useState(1);
-  const url = `http://localhost:3000/api/v1/blogs?page=${page}`;
   const {
     isLoading,
     error,
@@ -16,7 +14,7 @@ const Blogs = () => {
     isPreviousData,
   } = useQuery({
     queryKey: ["showItems", { page }],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/blogs?page=${page}`),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });

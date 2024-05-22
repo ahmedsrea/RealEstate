@@ -1,14 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import CompoundCard from "../../components/CompoundCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+import axios from "../../api/axios";
 
 const OtherProjects = () => {
-  const url = "http://localhost:3000/api/v1/compounds";
   const { isLoading, error, data } = useQuery({
     queryKey: ["other-projects"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get("/compounds"),
     networkMode: "offlineFirst",
   });
 

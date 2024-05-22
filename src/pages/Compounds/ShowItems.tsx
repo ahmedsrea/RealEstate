@@ -1,10 +1,10 @@
 import { FaAnglesRight } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import ShowCards from "../../components/ShowCards";
 import { useState } from "react";
 import PaginationNav from "../../components/PaginationNav";
+import axios from "../../api/axios";
 
 const ShowItems = () => {
   const [page, setPage] = useState(1);
@@ -24,10 +24,9 @@ const ShowItems = () => {
     max_price: searchParams.get("max_price"),
   };
 
-  const url = `http://localhost:3000/api/v1/compounds?page=${page}`;
   const { isLoading, error, data, isPreviousData } = useQuery({
     queryKey: ["showItems", { page }],
-    queryFn: () => axios.get(url, { params }),
+    queryFn: () => axios.get(`/compounds?page=${page}`, { params }),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });

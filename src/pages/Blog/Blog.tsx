@@ -1,15 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import AboutBlog from "./AboutBlog";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import NotFound from "../../components/NotFound";
+import axios from "../../api/axios";
 
 const Blog = () => {
   const { slug } = useParams();
-  const url = `http://localhost:3000/api/v1/blogs/${slug}`;
   const { isLoading, error, data } = useQuery({
     queryKey: ["Blog"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/blogs/${slug}`),
     networkMode: "offlineFirst",
   });
 

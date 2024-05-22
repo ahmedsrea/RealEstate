@@ -1,17 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "../../components/NotFound";
 import AboutDev from "./AboutDev";
 import DevProjects from "./DevProjects";
+import axios from "../../api/axios";
 
 const DevPage = () => {
   const { slug } = useParams();
-  const url = `http://localhost:3000/api/v1/developers/${slug}`;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["devPage"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/developers/${slug}`),
     networkMode: "offlineFirst",
   });
 

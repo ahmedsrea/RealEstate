@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import FormInput from "../../../components/FormInput";
-import axios from "axios";
 import { useState } from "react";
 import UploadWidget from "../../../components/UploadWidget";
+import axios from "../../../api/axios";
 
 type Inputs = {
   title: string;
@@ -11,7 +11,6 @@ type Inputs = {
 };
 
 export default function NewDeveloper() {
-  const url = "http://localhost:3000/api/v1/developers";
   const [errorMessage, setErrorMessage] = useState("");
   const [error, updateError] = useState<Error | undefined>(undefined);
   const [urlString, setUrlString] = useState("");
@@ -40,7 +39,7 @@ export default function NewDeveloper() {
         onSubmit={handleSubmit((data) => {
           axios
             .post(
-              url,
+              "/developers",
               { ...data, images: urlString },
               { headers: { "Content-Type": "application/json" } }
             )

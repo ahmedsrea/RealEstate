@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import NotFound from "../../../components/NotFound";
 import { Link } from "react-router-dom";
+import axios from "../../../api/axios";
 
 interface Product {
   title: string;
@@ -11,9 +11,8 @@ interface Product {
 }
 
 export default function ManageProducts({ swal }: { swal: any }) {
-  const url = `http://localhost:3000/api/v1/compounds`;
   const fetchProducts = async (): Promise<Product> => {
-    const response = await axios.get(url);
+    const response = await axios.get("/compounds");
     return response.data;
   };
 
@@ -42,7 +41,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
       })
       .then(async (res: { isConfirmed: boolean }) => {
         if (res.isConfirmed) {
-          await axios.delete(`${url}/${product._id}`);
+          await axios.delete(`/compounds/${product._id}`);
           refetch();
         }
       });
@@ -75,7 +74,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
                   </td>
                   <td>{product.title}</td>
                   <td>
-                    <Link to="" className="bg-slate-500">
+                    <Link to="edit" className="bg-slate-500">
                       Edit
                     </Link>
                     <button

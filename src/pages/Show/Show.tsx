@@ -5,22 +5,22 @@ import Order from "./Order";
 import Details from "./Details";
 import Amenities from "./Amenities";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import NotFound from "../../components/NotFound";
 import OtherProjects from "./OtherProjects";
+import axios from "../../api/axios";
 
 const Show = () => {
   const { slug } = useParams();
-  const url = `http://localhost:3000/api/v1/compounds/${slug}`;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["show"],
-    queryFn: () => axios.get(url),
+    queryFn: () => axios.get(`/compounds/${slug}`),
     networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading....";
   if (error) return <NotFound />;
+  if (data?.data.data === null) return <NotFound />;
 
   const {
     title,

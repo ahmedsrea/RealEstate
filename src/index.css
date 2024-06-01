@@ -60,12 +60,6 @@ input[type="search"]::-webkit-search-cancel-button {
   transform: translate(-50%, -50%);
 }
 
-.not-found-image {
-  background: url("https://realestate.eg/svg/404.svg");
-  width: 100%;
-  height: 100%;
-}
-
 /* Start Featured Location */
 .swiper-1 {
   overflow: hidden;

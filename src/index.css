@@ -38,16 +38,6 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 14px;
 }
 
-.img-clip {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  clip-path: inset(0px 214px 1px 0px);
-  width: 260px;
-  height: auto;
-}
-
 .under-line {
   content: "";
   position: absolute;

@@ -1,9 +1,9 @@
-import axios from "axios";
 import UploadWidget from "../../../components/UploadWidget";
 import { useState } from "react";
 import { Textarea } from "../../../components/inputs/Textarea";
 import FormInput from "../../../components/FormInput";
 import { useForm } from "react-hook-form";
+import axios from "../../../api/axios";
 
 type Inputs = {
   title: string;
@@ -18,7 +18,6 @@ type Inputs = {
 };
 
 export default function AddBlog() {
-  const url = "http://localhost:3000/api/v1/blogs";
   const {
     register,
     handleSubmit,
@@ -50,7 +49,7 @@ export default function AddBlog() {
         onSubmit={handleSubmit((data) => {
           axios
             .post(
-              url,
+              "/blogs",
               { ...data, images: urlString },
               { headers: { "Content-Type": "application/json" } }
             )

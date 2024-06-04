@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import NotFound from "../../../components/NotFound";
 import { Link } from "react-router-dom";
+import axios from "../../../api/axios";
 
 interface Blogs {
   title: string;
@@ -11,9 +11,8 @@ interface Blogs {
 }
 
 export default function ManageBlogs({ swal }) {
-  const url = `http://localhost:3000/api/v1/blogs`;
   const fetchBlogs = async (): Promise<Blogs> => {
-    const response = await axios.get(url);
+    const response = await axios.get("/blogs");
     return response.data;
   };
 
@@ -42,7 +41,7 @@ export default function ManageBlogs({ swal }) {
       })
       .then(async (res: { isConfirmed: boolean }) => {
         if (res.isConfirmed) {
-          await axios.delete(`${url}/${blog._id}`);
+          await axios.delete(`/blogs/${blog._id}`);
           refetch();
         }
       });

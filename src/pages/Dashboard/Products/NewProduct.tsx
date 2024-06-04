@@ -4,8 +4,8 @@ import UploadWidget from "../../../components/UploadWidget";
 import { Textarea } from "../../../components/inputs/Textarea";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../components/FormInput";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
+import axios from "../../../api/axios";
 
 const propType = [
   { title: "Property", value: "property" },
@@ -42,7 +42,6 @@ type Inputs = {
 };
 
 export default function NewProduct() {
-  const url = "http://localhost:3000/api/v1/compounds";
   const {
     register,
     handleSubmit,
@@ -73,7 +72,7 @@ export default function NewProduct() {
           onSubmit={handleSubmit((data) => {
             axios
               .post(
-                url,
+                "/compounds",
                 { ...data, images: urlString },
                 {
                   headers: { "Content-Type": "application/json" },

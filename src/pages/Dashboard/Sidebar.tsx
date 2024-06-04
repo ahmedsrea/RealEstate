@@ -15,6 +15,17 @@ export default function Sidebar() {
       <ul className="text-[#8B909A]">
         <li>
           <Link
+            to={""}
+            className={
+              location.pathname === "/dashboard" ? activeLink : inactiveLink
+            }
+          >
+            <TbSmartHome size="18" className="mb-[2px]" />
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link
             to={"products"}
             className={
               location.pathname === "/dashboard/products"
@@ -89,6 +100,19 @@ export default function Sidebar() {
           >
             <GrBlog size="18" className="mb-[2px]" />
             Add Developer
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={"users"}
+            className={
+              location.pathname === "/dashboard/users"
+                ? activeLink
+                : inactiveLink
+            }
+          >
+            <GrBlog size="18" className="mb-[2px]" />
+            Users
           </Link>
         </li>
       </ul>

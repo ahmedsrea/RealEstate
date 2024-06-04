@@ -113,7 +113,7 @@ const Filter = () => {
               </option>
             ))}
           </select>
-          <select name="max_area" id="" className="filter-select  flex-1">
+          <select name="max_area" id="area" className="filter-select  flex-1">
             <option value="">Max</option>
             {area.map((area, index) => (
               <option
@@ -145,7 +145,7 @@ const Filter = () => {
               </option>
             ))}
           </select>
-          <select name="max_price" id="" className="filter-select  flex-1">
+          <select name="max_price" id="price" className="filter-select flex-1">
             <option value="">Max</option>
             {price.map((price, index) => (
               <option

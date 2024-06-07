@@ -45,8 +45,8 @@ const ForSale = () => {
       <div className="flex flex-row items-start gap-6 mt-16">
         <SaleFilter />
 
-        <div>
-          <div className="sm:border sm:border-[#DDDDDD] rounded-lg lg:min-w-[730px] md:max-w-[690px] sm:max-w-[510px] w-full mx-auto sm:p-4">
+        <div className="w-full">
+          <div className="sm:border sm:border-[#DDDDDD] rounded-lg lg:max-w-[730px] md:max-w-[690px] sm:max-w-[510px] w-full mx-auto sm:p-4">
             {Property?.data?.data.map((data) => (
               <ForSaleCard {...data} key={data._id} />
             ))}

@@ -6,6 +6,7 @@ const LowerBg = () => {
       viewBox="0 0 1440 220"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      data-testid="lower-bg-svg"
     >
       <defs>
         <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">

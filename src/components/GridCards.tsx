@@ -13,7 +13,6 @@ type GridCardsProps = {
   unite_size: number;
   location: string;
   slug: string;
-  small: boolean;
 };
 
 const GridCards = ({

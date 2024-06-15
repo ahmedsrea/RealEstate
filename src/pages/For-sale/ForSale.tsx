@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ForSaleCard from "../../components/ForSaleCard";
-import SaleFilter from "./SaleFilter";
+import SaleFilter, { Filter } from "./SaleFilter";
 import { useQuery } from "@tanstack/react-query";
 import PaginationNav from "../../components/PaginationNav";
 import axios from "../../api/axios";
 
 const ForSale = () => {
+  const [filter, setFilter] = useState({});
   const [page, setPage] = useState(1);
   const {
     isLoading,
@@ -14,11 +15,16 @@ const ForSale = () => {
     data: Property,
     isPreviousData,
   } = useQuery({
-    queryKey: ["showProperty", { page }],
-    queryFn: () => axios.get(`/compounds/get-property?page=${page}`),
+    queryKey: ["showProperty", { page, filter }],
+    queryFn: () =>
+      axios.get(`/compounds/get-property?page=${page}`, { params: filter }),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });
+
+  const handleFilterUpdate = (newFilter: Filter) => {
+    setFilter(newFilter);
+  };
 
   if (isLoading) return "Loading";
   if (error) return "An error has occured" + error;
@@ -43,14 +49,21 @@ const ForSale = () => {
       </div>
 
       <div className="flex flex-row items-start gap-6 mt-16">
-        <SaleFilter />
+        <SaleFilter onFilterUpdate={handleFilterUpdate} />
 
         <div className="w-full">
           <div className="sm:border sm:border-[#DDDDDD] rounded-lg lg:max-w-[730px] md:max-w-[690px] sm:max-w-[510px] w-full mx-auto sm:p-4">
-            {Property?.data?.data.map((data) => (
-              <ForSaleCard {...data} key={data._id} />
-            ))}
+            {Property?.data?.data && Property?.data?.data.length > 0 ? (
+              Property?.data?.data.map((data) => (
+                <ForSaleCard {...data} key={data._id} />
+              ))
+            ) : (
+              <p className="text-xl font-extralight py-16">
+                There are no properties matching these criteria.
+              </p>
+            )}
           </div>
+
           <PaginationNav
             prevPage={prevPage}
             nextPage={nextPage}

@@ -1,9 +1,9 @@
 {
+  "buildCommand": "vite build",
   "rewrites": [
     {
       "source": "/server/(.*)",
-      "destination": "/server",
-      "buildCommand": "vite build"
+      "destination": "/server"
     }
   ]
 }

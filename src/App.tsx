@@ -15,12 +15,15 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import NewProduct from "./pages/Dashboard/Products/NewProduct";
 import AddBlog from "./pages/Dashboard/Blogs/NewBlog";
 import WrappedManageProducts from "./pages/Dashboard/Products/WrappedManageProducts";
+import EditProduct from "./pages/Dashboard/Products/EditProduct";
 import NewDeveloper from "./pages/Dashboard/Developers/NewDeveloper";
 import WrappedManageDevelopers from "./pages/Dashboard/Developers/WrappedManageDevelopers";
 import WrappedManageBlogs from "./pages/Dashboard/Blogs/WrappedManageBlogs";
 import Login from "./pages/Dashboard/Login";
 import RequireAuth from "./pages/Dashboard/RequireAuth";
 import PersistLogin from "./pages/Dashboard/PersistLogin";
+import DashboardLayout from "./pages/Dashboard/DashboardLayout";
+import Users from "./pages/Dashboard/Users";
 
 function App() {
   return (
@@ -38,8 +41,11 @@ function App() {
           {/* Protected Routes */}
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth />}>
-              <Route path="/dashboard/*" element={<Dashboard />}>
-                <Route path="products" element={<WrappedManageProducts />} />
+              <Route path="/dashboard/*" element={<DashboardLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="products" element={<WrappedManageProducts />}>
+                  <Route path="edit" element={<EditProduct />} />
+                </Route>
                 <Route path="add-product" element={<NewProduct />} />
                 <Route path="blogs" element={<WrappedManageBlogs />} />
                 <Route path="add-blog" element={<AddBlog />} />
@@ -48,6 +54,7 @@ function App() {
                   element={<WrappedManageDevelopers />}
                 />
                 <Route path="add-dev" element={<NewDeveloper />} />
+                <Route path="users" element={<Users />} />
               </Route>
             </Route>
           </Route>

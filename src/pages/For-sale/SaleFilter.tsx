@@ -18,7 +18,7 @@ interface FilterProps {
 }
 
 const SaleFilter = ({ onFilterUpdate }: FilterProps) => {
-  const { register, handleSubmit } = useForm<Filter>();
+  const { register, handleSubmit, reset } = useForm<Filter>();
   const [minVal, setMinVal] = useState<number>(0);
   const [maxVal, setMaxVal] = useState<number>(10000000);
 
@@ -119,7 +119,10 @@ const SaleFilter = ({ onFilterUpdate }: FilterProps) => {
           setMaxVal={setMaxVal}
           register={register}
         />
-        <button className="border-[2px] border-[#FB6B01] hover:border-white hover:text-[#FB6B01] py-[6px] px-6 rounded-[4px] transition duration-300 mt-1">
+        <button
+          className="border-[2px] border-[#FB6B01] hover:border-white hover:text-[#FB6B01] py-[6px] px-6 rounded-[4px] transition duration-300 mt-1"
+          onClick={() => reset()}
+        >
           Reset All Filters
         </button>
         <button

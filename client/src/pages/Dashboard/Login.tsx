@@ -6,7 +6,7 @@ import axios from "../../api/axios";
 const LOGIN_URL = "/users/login";
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +18,6 @@ export default function Login() {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -40,7 +39,7 @@ export default function Login() {
           withCredentials: true,
         }
       );
-      const accessToken = response?.data?.token;
+      const accessToken = response?.data?.accessToken;
       setAuth({ user, pwd, accessToken });
       setUser("");
       setPwd("");
@@ -58,6 +57,14 @@ export default function Login() {
       errRef.current.focus();
     }
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
 
   return (
     <section className="w-full h-full absolute top-0 left-0 bg-gray-400 flex flex-col justify-center items-center">
@@ -79,7 +86,7 @@ export default function Login() {
             type="text"
             id="email"
             ref={userRef}
-            autoComplete="off"
+            // autoComplete="off"
             onChange={(e) => setUser(e.target.value)}
             value={user}
             required
@@ -96,6 +103,16 @@ export default function Login() {
           />
         </div>
         <button>Sign In</button>
+        <div className="mt-2 flex justify-start items-end text-sm">
+          <input
+            className="h-[14px] w-[14px] mb-1 mx-[2px]"
+            type="checkbox"
+            id="persist"
+            onChange={togglePersist}
+            checked={persist}
+          />
+          <label htmlFor="persist">Trust this device</label>
+        </div>
       </form>
     </section>
   );

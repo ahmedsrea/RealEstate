@@ -10,7 +10,6 @@
 .checkbox-label {
   @apply w-full py-3 px-4 ml-2 text-sm font-medium text-gray-900 flex items-center gap-2;
 }
-
 table.basic {
   @apply w-full bg-white rounded-md shadow-sm;
 }

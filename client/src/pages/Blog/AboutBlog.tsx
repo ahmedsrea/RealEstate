@@ -11,6 +11,7 @@ interface BlogProps {
   dev_by: string;
   createdAt: Date;
   markdown: String;
+  sanitizedHtml: string;
 }
 
 const AboutBlog: React.FC<BlogProps> = ({
@@ -22,6 +23,7 @@ const AboutBlog: React.FC<BlogProps> = ({
   dev_by,
   createdAt,
   markdown,
+  sanitizedHtml,
 }) => {
   const f = new Intl.NumberFormat("en-EG");
   return (
@@ -30,7 +32,7 @@ const AboutBlog: React.FC<BlogProps> = ({
       <div>
         <img src={images} alt="" className="w-full h-[350px]" />
         <div className="p-4">
-          <h1 className="my-3  font-bold text-[22px]">{title}</h1>
+          <h1 className="my-3 font-bold text-[22px]">{title}</h1>
           <h2 className="text-[#fb0b01] font-light">
             From <span className="font-bold">{f.format(price)}</span> EGP
           </h2>
@@ -64,7 +66,11 @@ const AboutBlog: React.FC<BlogProps> = ({
       </div>
       {/* End First Part */}
       {/* Start Second Part */}
-      <SecondPart markdown={markdown} createdAt={createdAt} />
+      <SecondPart
+        markdown={markdown}
+        createdAt={createdAt}
+        sanitizedHtml={sanitizedHtml}
+      />
     </div>
   );
 };

@@ -24,7 +24,7 @@ const FormInput: React.FC<FormInputProps> = ({
         {...register(name, { required: "This is required" })}
         id={name}
       />
-      <p>{errors.title?.message}</p>
+      <p>{errors.name?.message}</p>
     </div>
   );
 };

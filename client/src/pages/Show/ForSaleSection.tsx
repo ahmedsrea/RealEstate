@@ -5,16 +5,16 @@ import ForSaleCard from "../../components/ForSaleCard";
 const ForSaleSection = () => {
   const [data, setData] = useState([]);
 
-  async function useFetch() {
-    let url = `http://localhost:3000/get-property`;
-    return await fetch(url)
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }
+  // async function useFetch() {
+  //   let url = `http://localhost:3000/get-property`;
+  //   return await fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data));
+  // }
 
-  useEffect(() => {
-    useFetch();
-  }, [data]);
+  // useEffect(() => {
+  //   useFetch();
+  // }, [data]);
 
   return (
     <div className="xl:max-w-[1400px] mx-auto mt-16 bg-[#FFFFFF] w-full px-[15px] pb-14">
@@ -24,9 +24,10 @@ const ForSaleSection = () => {
         </h1>
 
         <div className="grid md:grid-cols-2 gap-5">
-          {data.map((data: any) => (
-            <ForSaleCard {...data} key={data._id} small />
-          ))}
+          {/* {data &&
+            data.map((data: any) => (
+              <ForSaleCard {...data} key={data._id} small />
+            ))} */}
         </div>
 
         <Link

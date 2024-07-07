@@ -22,7 +22,7 @@ This project is a practice on MongoDB, ExpressJS, and React, inspired by [reales
 
 A list of things not working right now:
 
-1. The filteration section on the For sale page.
+1. ~The filteration section on the For sale page~
 
 ## Running Locally
 

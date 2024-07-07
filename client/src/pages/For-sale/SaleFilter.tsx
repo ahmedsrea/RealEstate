@@ -23,7 +23,12 @@ const SaleFilter = ({ onFilterUpdate }: FilterProps) => {
   const [maxVal, setMaxVal] = useState<number>(10000000);
 
   return (
-    <form onSubmit={handleSubmit((data) => onFilterUpdate(data))}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onFilterUpdate(data);
+        console.log(data);
+      })}
+    >
       <div className="w-[350px] lg:flex flex-col hidden border border-[#DDDDDD] rounded-lg p-9 gap-4">
         <div>
           <label
@@ -104,7 +109,6 @@ const SaleFilter = ({ onFilterUpdate }: FilterProps) => {
                 <input
                   {...register("bathrooms")}
                   type="radio"
-                  name="Bathrooms"
                   value={index === 0 ? "" : index}
                 />
                 {index === 0 ? "Any" : index}+

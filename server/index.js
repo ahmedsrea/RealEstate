@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 
 const app = express();
 const cors = require("cors");
@@ -7,6 +8,8 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
+const mongoose = require("mongoose");
+const port = process.env.API_PORT || 3000;
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -14,6 +17,14 @@ const devRoutes = require("./routes/devRoutes");
 const compoundRoutes = require("./routes/compoundRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const userRoutes = require("./routes/userRoutes");
+
+mongoose.connect(process.env.MongoDB_URI).catch((error) => console.log(error));
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXECPTION! Shutting down....");
+  console.log(err.name, err.message);
+  process.exit(1);
+});
 
 // Set security HTTP headers
 app.use(helmet());
@@ -56,5 +67,17 @@ app.all("*", (req, res, next) => {
 });
 
 app.use(globalErrorHandler);
+
+app.listen(port, () => {
+  console.log("Server running on port", process.env.API_PORT);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! Shutting down....");
+  console.log(err);
+  server.close(() => {
+    process.exit(1);
+  });
+});
 
 module.exports = app;

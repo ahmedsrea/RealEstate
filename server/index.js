@@ -9,6 +9,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const port = process.env.API_PORT || 3000;
 
 const AppError = require("./utils/appError");
@@ -52,8 +53,11 @@ const corsConfig = {
   origin: true,
 };
 app.use(cors(corsConfig)); // fuck you
-app.use(express.json({ limit: "10kb" }));
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json({ limit: "10kb" }));
+// app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 
 // Routes

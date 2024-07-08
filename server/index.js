@@ -49,7 +49,8 @@ app.use(
 
 const corsConfig = {
   credentials: true,
-  origin: true,
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
 };
 app.use(cors(corsConfig)); // fuck you
 app.use(express.json({ limit: "10kb" }));

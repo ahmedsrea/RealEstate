@@ -4,9 +4,9 @@ import UploadWidget from "../../../components/UploadWidget";
 import { Textarea } from "../../../components/inputs/Textarea";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../components/FormInput";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
-import { location } from "../../../data/constants";
+import { location, developer } from "../../../data/constants";
 
 const propType = [
   { title: "Property", value: "property" },
@@ -51,6 +51,7 @@ export default function NewProduct() {
   const [errorMessage, setErrorMessage] = useState("");
   const [error, updateError] = useState<Error | undefined>(undefined);
   const [urlString, setUrlString] = useState("");
+  const navigate = useNavigate();
   function handleonUpload(error: Error | undefined, result, widget) {
     if (error) {
       updateError(error);
@@ -81,8 +82,8 @@ export default function NewProduct() {
               )
               .then((res) => {
                 console.log(res);
-                if (res.status === 201) {
-                  return <Navigate to={"/products"} replace={true} />;
+                if (res.data.status === 201) {
+                  navigate("/dashboard/products");
                 }
               })
               .catch((error) => setErrorMessage(error.response.data.message));
@@ -133,13 +134,19 @@ export default function NewProduct() {
               register={register}
               errors={errors}
             />
-            <FormInput
-              label="Developed By:"
-              type="text"
-              name="dev_by"
-              register={register}
-              errors={errors}
-            />
+            <label htmlFor="developer">Developed By:</label>
+            <select
+              {...register("dev_by")}
+              id="developer"
+              className="filter-select"
+            >
+              <option value="">Show all</option>
+              {developer.map((location, index) => (
+                <option value={location.value} key={index}>
+                  {location.title}
+                </option>
+              ))}
+            </select>
             <div>
               <label htmlFor="proj_type">Project Type:</label>
               <select

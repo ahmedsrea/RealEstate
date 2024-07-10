@@ -47,7 +47,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
       });
   }
   return (
-    <section className="w-full px-4 pt-5 max-w-[700px]">
+    <section className="w-full px-4 pt-5 max-w-[800px]">
       <table className="basic">
         <thead>
           <tr>

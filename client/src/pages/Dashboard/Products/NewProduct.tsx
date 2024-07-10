@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import FormInput from "../../../components/FormInput";
 import { Navigate } from "react-router-dom";
 import axios from "../../../api/axios";
+import { location } from "../../../data/constants";
 
 const propType = [
   { title: "Property", value: "property" },
@@ -98,13 +99,19 @@ export default function NewProduct() {
               register={register}
               errors={errors}
             />
-            <FormInput
-              label="Location:"
-              type="text"
-              name="location"
-              register={register}
-              errors={errors}
-            />
+            <label htmlFor="location">Location</label>
+            <select
+              {...register("location")}
+              id="location"
+              className="filter-select"
+            >
+              <option value="">Show all</option>
+              {location.map((location, index) => (
+                <option value={location.value} key={index}>
+                  {location.title}
+                </option>
+              ))}
+            </select>
             <FormInput
               label="Status:"
               type="text"

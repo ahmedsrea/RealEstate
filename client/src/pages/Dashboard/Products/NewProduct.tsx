@@ -80,11 +80,8 @@ export default function NewProduct() {
                   headers: { "Content-Type": "application/json" },
                 }
               )
-              .then((res) => {
-                console.log(res);
-                if (res.data.status === 201) {
-                  navigate("/dashboard/products");
-                }
+              .then(() => {
+                navigate("/dashboard/products");
               })
               .catch((error) => setErrorMessage(error.response.data.message));
           })}

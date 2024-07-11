@@ -57,10 +57,8 @@ const Details = ({
           <p className="">{furnishing}.</p>
         </div>
         <div className="flex flex-row mb-4 gap-1">
-          <p className="text-[#6A6A6A]">
-            <strong className="mr-1 font-extrabold">Features:</strong>
-            {features}.
-          </p>
+          <strong className="">Features:</strong>
+          <p className="">{features}.</p>
         </div>
         <div className="mb-4">
           <p className="">

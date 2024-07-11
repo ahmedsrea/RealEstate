@@ -3,6 +3,7 @@ import FormInput from "../../../components/FormInput";
 import { useState } from "react";
 import UploadWidget from "../../../components/UploadWidget";
 import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   title: string;
@@ -11,6 +12,7 @@ type Inputs = {
 };
 
 export default function NewDeveloper() {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [error, updateError] = useState<Error | undefined>(undefined);
   const [urlString, setUrlString] = useState("");
@@ -43,6 +45,9 @@ export default function NewDeveloper() {
               { ...data, images: urlString },
               { headers: { "Content-Type": "application/json" } }
             )
+            .then(() => {
+              navigate("/dashboard/developers");
+            })
             .catch((error) => {
               setErrorMessage(error.response.data.message);
             });

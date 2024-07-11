@@ -72,7 +72,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
                       />
                     </div>
                   </td>
-                  <td>{product.title}</td>
+                  <td>{product.title.substring(0, 50)}</td>
                   <td>
                     <Link to="edit" className="bg-slate-500">
                       Edit

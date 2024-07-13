@@ -52,7 +52,7 @@ const FirstSectoin = ({
 
         <div>
           <h1 className="mb-3 font-bold text-xl lg:text-3xl text-[#2d3436]">
-            Aboout {title}
+            About {title}
           </h1>
           <p className="text-[#FB6B01] mb-4 lg:text-base text-xs">
             تواصل معنا لمعرفة احدث الاسعار والعروض

@@ -148,8 +148,9 @@ export default function NewProduct() {
               <label htmlFor="proj_type">Project Type:</label>
               <select
                 className={`w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500`}
+                {...register("proj_type")}
               >
-                <option {...register("proj_type")}>Select</option>
+                <option value="">Select</option>
                 {propType?.map(({ value, title }) => (
                   <option value={value} key={value}>
                     {title}

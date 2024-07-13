@@ -10,10 +10,14 @@ import axios from "../../api/axios";
 const Compounds = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState({});
+  const [projtype, setProjtype] = useState("compound");
 
   const { isLoading, error, data, isPreviousData } = useQuery({
-    queryKey: ["showItems", { page, filter }],
-    queryFn: () => axios.get(`/compounds?page=${page}`, { params: filter }),
+    queryKey: ["showItems", { page, filter, projtype }],
+    queryFn: () =>
+      axios.get(`/compounds?proj_type=${projtype}&page=${page}`, {
+        params: filter,
+      }),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });
@@ -29,6 +33,10 @@ const Compounds = () => {
 
   const handleFilterUpdate = (newFilter: FilterTypes) => {
     setFilter(newFilter);
+  };
+
+  const onProjectChange = (project) => {
+    setProjtype(project);
   };
 
   return (
@@ -47,7 +55,7 @@ const Compounds = () => {
           <span className="">Egypt's</span> Compounds - {data?.data?.total}{" "}
           compounds and 30810 properties for sale.
         </h1>
-        <ShowCards data={data?.data.data} />
+        <ShowCards data={data?.data.data} onProjectChange={onProjectChange} />
         <PaginationNav
           prevPage={prevPage}
           nextPage={nextPage}

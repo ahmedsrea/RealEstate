@@ -2,7 +2,7 @@ import { useState } from "react";
 import CompoundCard from "./CompoundCard";
 import PropertyCards from "./PropertyCard";
 
-const ShowCards = ({ data }: any) => {
+const ShowCards = ({ data, onProjectChange }: any) => {
   const [card, setCard] = useState("compounds");
   return (
     <div>
@@ -20,7 +20,10 @@ const ShowCards = ({ data }: any) => {
             border-b-[3px] 
             hover:border-none
             `}
-          onClick={() => setCard("compounds")}
+          onClick={() => {
+            setCard("compounds");
+            onProjectChange("compound");
+          }}
         >
           compounds
         </button>
@@ -37,7 +40,10 @@ const ShowCards = ({ data }: any) => {
             border-b-[3px]
             hover:border-none
             `}
-          onClick={() => setCard("properties")}
+          onClick={() => {
+            setCard("properties");
+            onProjectChange("property");
+          }}
         >
           properties
         </button>

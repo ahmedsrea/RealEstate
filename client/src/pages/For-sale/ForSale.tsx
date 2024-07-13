@@ -17,7 +17,9 @@ const ForSale = () => {
   } = useQuery({
     queryKey: ["showProperty", { page, filter }],
     queryFn: () =>
-      axios.get(`/compounds/get-property?page=${page}`, { params: filter }),
+      axios.get(`/compounds/get-property?proj_type=property&page=${page}`, {
+        params: filter,
+      }),
     keepPreviousData: true,
     networkMode: "offlineFirst",
   });

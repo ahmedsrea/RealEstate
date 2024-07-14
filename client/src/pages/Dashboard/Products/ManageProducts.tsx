@@ -5,6 +5,7 @@ import axios from "../../../api/axios";
 
 interface Product {
   title: string;
+  proj_type: string;
   images: string;
   _id: string;
   data: Product[];
@@ -47,12 +48,13 @@ export default function ManageProducts({ swal }: { swal: any }) {
       });
   }
   return (
-    <section className="w-full px-4 pt-5 max-w-[800px]">
+    <section className="w-full px-4 pt-5 max-w-[850px]">
       <table className="basic">
         <thead>
           <tr>
             <td>image</td>
             <td>title</td>
+            <td>type</td>
             <td>Action</td>
           </tr>
         </thead>
@@ -73,6 +75,7 @@ export default function ManageProducts({ swal }: { swal: any }) {
                     </div>
                   </td>
                   <td>{product.title.substring(0, 50)}</td>
+                  <td>{product.proj_type}</td>
                   <td>
                     <Link to="edit" className="bg-slate-500">
                       Edit

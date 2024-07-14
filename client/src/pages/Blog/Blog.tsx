@@ -26,14 +26,13 @@ const Blog = () => {
     del_date,
     markdown,
     createdAt,
-    sanitizedHtml,
   } = data?.data?.data || {};
 
   if (isLoading) return "Loadding...";
   if (error) return "An error has occured" + error;
 
   return (
-    <div className="mt-9 xl:max-w-[1280px] w-full mx-auto">
+    <div className="mt-9 xl:max-w-[1280px] w-full mx-auto mb-5">
       <h1 className="text-[24px] font-bold mb-4 px-[15px]">{blog_title}</h1>
       <div className="ml-8">
         <Link to={"/"} className="text-[#019DFC] hover:text-[#0266a4]">
@@ -43,7 +42,6 @@ const Blog = () => {
         <Link to={"/"} className="text-[#019DFC] hover:text-[#0266a4]">
           Blog
         </Link>
-        <span className="mr-2 ml-2">/</span>
         <Link
           to={`/blog/${location}`}
           className="text-[#019DFC] hover:text-[#0266a4]"
@@ -63,7 +61,6 @@ const Blog = () => {
           del_date={del_date}
           markdown={markdown}
           createdAt={createdAt}
-          sanitizedHtml={sanitizedHtml}
         />
       </div>
     </div>

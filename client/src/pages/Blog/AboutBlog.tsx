@@ -10,8 +10,7 @@ interface BlogProps {
   del_date: number;
   dev_by: string;
   createdAt: Date;
-  markdown: String;
-  sanitizedHtml: string;
+  markdown: string;
 }
 
 const AboutBlog: React.FC<BlogProps> = ({
@@ -23,7 +22,6 @@ const AboutBlog: React.FC<BlogProps> = ({
   dev_by,
   createdAt,
   markdown,
-  sanitizedHtml,
 }) => {
   const f = new Intl.NumberFormat("en-EG");
   return (
@@ -66,11 +64,7 @@ const AboutBlog: React.FC<BlogProps> = ({
       </div>
       {/* End First Part */}
       {/* Start Second Part */}
-      <SecondPart
-        markdown={markdown}
-        createdAt={createdAt}
-        sanitizedHtml={sanitizedHtml}
-      />
+      <SecondPart markdown={markdown} createdAt={createdAt} />
     </div>
   );
 };

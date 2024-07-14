@@ -52,7 +52,11 @@ const LatestUpdates = () => {
             key={_id}
           >
             <div className="w-[200px] h-full">
-              <img src={images} alt="" className="w-full h-full bg-cover" />
+              <img
+                src={images}
+                alt=""
+                className="md:max-w-[180px] h-full bg-cover"
+              />
             </div>
             <div>
               <h1 className="font-bold text-[#019DFB] mb-7">{title}</h1>

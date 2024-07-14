@@ -4,6 +4,8 @@ import { Textarea } from "../../../components/inputs/Textarea";
 import FormInput from "../../../components/FormInput";
 import { useForm } from "react-hook-form";
 import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
+import { developer, location } from "../../../data/constants";
 
 type Inputs = {
   title: string;
@@ -18,6 +20,7 @@ type Inputs = {
 };
 
 export default function AddBlog() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -53,7 +56,7 @@ export default function AddBlog() {
               { ...data, images: urlString },
               { headers: { "Content-Type": "application/json" } }
             )
-            .then((res) => console.log(res.data))
+            .then(() => navigate("/dashboard/blogs"))
             .catch((error) => setErrorMessage(error.response.data.message));
         })}
       >
@@ -71,13 +74,19 @@ export default function AddBlog() {
           register={register}
           errors={errors}
         />
-        <FormInput
-          label="Location"
-          type="text"
-          name="location"
-          register={register}
-          errors={errors}
-        />
+        <label htmlFor="location">Location</label>
+        <select
+          {...register("location")}
+          id="location"
+          className="filter-select"
+        >
+          <option value="">Show all</option>
+          {location.map((location, index) => (
+            <option value={location.value} key={index}>
+              {location.title}
+            </option>
+          ))}
+        </select>
         <FormInput
           label="Price"
           type="number"
@@ -99,13 +108,19 @@ export default function AddBlog() {
           register={register}
           errors={errors}
         />
-        <FormInput
-          label="Developed by"
-          type="text"
-          name="dev_by"
-          register={register}
-          errors={errors}
-        />
+        <label htmlFor="developer">Developed By:</label>
+        <select
+          {...register("dev_by")}
+          id="developer"
+          className="filter-select"
+        >
+          <option value="">Show all</option>
+          {developer.map((location, index) => (
+            <option value={location.value} key={index}>
+              {location.title}
+            </option>
+          ))}
+        </select>
 
         <div>
           <label htmlFor="description">Description</label>

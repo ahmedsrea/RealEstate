@@ -71,7 +71,7 @@ const Blogs = () => {
               className="rounded-md overflow-hidden border border-[#DDDDDD] group"
             >
               <Link to={`/blog/${data.slug}`}>
-                <img src={data.images} alt="" />
+                <img src={data.images} alt="" className="h-[180px] w-full" />
               </Link>
               <div className="p-4">
                 <Link to={`/blog/${data.slug}`}>
@@ -86,7 +86,6 @@ const Blogs = () => {
                   <ReactMarkdown
                     children={data?.markdown?.slice(0, 50) + "..."}
                   />
-                  {/* <ReactMarkdown>Hello *Ahmed*</ReactMarkdown> */}
                 </div>
               </div>
             </div>

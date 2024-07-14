@@ -48,7 +48,7 @@ export default function ManageBlogs({ swal }) {
   }
 
   return (
-    <section className="w-full px-4 pt-5 max-w-[700px]">
+    <section className="w-full px-4 pt-5 max-w-[800px]">
       <table className="basic">
         <thead>
           <tr>
@@ -73,7 +73,7 @@ export default function ManageBlogs({ swal }) {
                       />
                     </div>
                   </td>
-                  <td>{blog.title}</td>
+                  <td>{blog.title.substring(0, 50)}</td>
                   <td>
                     <Link to="" className="bg-slate-500">
                       Edit

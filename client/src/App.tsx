@@ -24,10 +24,11 @@ import RequireAuth from "./pages/Dashboard/RequireAuth";
 import PersistLogin from "./pages/Dashboard/PersistLogin";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
 import Users from "./pages/Dashboard/Users";
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
   return (
-    <>
+    <SearchProvider>
       <Router>
         <ScrollToTop />
         <Navbar />
@@ -68,7 +69,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </>
+    </SearchProvider>
   );
 }
 

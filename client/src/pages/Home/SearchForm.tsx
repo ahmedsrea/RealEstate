@@ -1,54 +1,41 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Select from "../../components/inputs/Select";
+import { SearchContext } from "../../context/SearchContext";
 import { projectType, location, budget } from "../../data/constants";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
-  const [data, setData] = useState({
-    proj_type: "",
-    location: "",
-    budget: "",
-  });
+  const searchContext = useContext(SearchContext);
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
-  function handle(e: React.ChangeEvent<HTMLInputElement>) {
-    const newData = { ...data };
-    newData[e.target.id] = e.target.value;
-    setData(newData);
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    navigate(
-      `/search?project_type=${data.proj_type}&location=${
-        data.location
-      }&budget_range=${encodeURIComponent(data.budget)}`
-    );
-  }
+  const { setSearchData } = searchContext;
 
   return (
     <div className="bg-black/60 p-7 rounded-lg w-full sm:w-[80%] md:w-fit z-10">
       <p className="text-sm text-[#CCCCCC] text-left mb-1">All Developments</p>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setSearchData(data);
+          navigate("/compounds");
+          console.log(data);
+        })}
+      >
         <div className="flex flex-col md:flex-row gap-5 mb-7">
           <Select
             data={projectType}
             name="proj_type"
             id="proj_type"
-            onChange={(e) => handle(e)}
+            register={register}
           />
           <Select
             data={location}
             name="location"
             id="location"
-            onChange={(e) => handle(e)}
+            register={register}
           />
-          <Select
-            data={budget}
-            name="budget"
-            id="budget"
-            onChange={(e) => handle(e)}
-          />
+          <Select data={budget} name="budget" id="budget" register={register} />
         </div>
         <button
           type="submit"

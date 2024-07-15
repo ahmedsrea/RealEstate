@@ -3,14 +3,23 @@ import { FaAnglesRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ShowCards from "../../components/ShowCards";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PaginationNav from "../../components/PaginationNav";
 import axios from "../../api/axios";
+import { SearchContext } from "../../context/SearchContext";
 
 const Compounds = () => {
+  const searchContext = useContext(SearchContext);
+  const { searchData } = searchContext;
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState({});
   const [projtype, setProjtype] = useState("compound");
+
+  useEffect(() => {
+    if (searchData) {
+      setFilter(searchData);
+    }
+  }, [searchData]);
 
   const { isLoading, error, data, isPreviousData } = useQuery({
     queryKey: ["showItems", { page, filter, projtype }],
@@ -53,7 +62,7 @@ const Compounds = () => {
         </p>
         <h1 className="font-bold sm:text-3xl text-2xl relative mb-7">
           <span className="">Egypt's</span> Compounds - {data?.data?.total}{" "}
-          compounds and 30810 properties for sale.
+          compounds and 5 properties for sale.
         </h1>
         <ShowCards data={data?.data.data} onProjectChange={onProjectChange} />
         <PaginationNav

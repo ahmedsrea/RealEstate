@@ -6,6 +6,7 @@ interface SelectProps {
   onChange?: (e: React.ChangeEvent) => void;
   data: Array<string>;
   smallRound?: boolean;
+  register: any;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,6 +17,7 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   data,
   smallRound,
+  register,
 }) => {
   return (
     <div>
@@ -28,6 +30,7 @@ const Select: React.FC<SelectProps> = ({
       <select
         name={name}
         id={id}
+        {...register(name)}
         onChange={onChange}
         className={`w-full p-2 text-gray-900 border border-gray-300 ${
           smallRound ? "rounded-[4px]" : "rounded-lg"

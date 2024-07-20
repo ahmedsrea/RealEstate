@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { featLocations } from "../../data/constants";
 import { Reveal } from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
+import { useContext } from "react";
+import { SearchContext } from "../../context/SearchContext";
 
 const FeaLocations = () => {
+  const searchContext = useContext(SearchContext);
+  const { setSearchData } = searchContext;
+  const navigate = useNavigate();
   const customAnimation = keyframes`
     from {
       opacity: 0;
@@ -15,6 +20,11 @@ const FeaLocations = () => {
       transform: translateY(0);
     }
   `;
+
+  const searchLocation = (title: string) => {
+    setSearchData({ location: `${title}` });
+    navigate("/compounds");
+  };
 
   return (
     <div
@@ -29,7 +39,11 @@ const FeaLocations = () => {
       </Reveal>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
         {featLocations.map((data, index) => (
-          <Link to={`/search=${data.title.toLocaleLowerCase()}`} key={index}>
+          <div
+            key={index}
+            className="cursor-pointer"
+            onClick={() => searchLocation(data.title)}
+          >
             <div className="flex lg:h-[240px] min-h-[240px] max-h-[300px] relative overflow-hidden rounded-lg">
               <img src={data.bg} alt={data.title} className="flex-1" />
               <div className="absolute top-0 left-0 bg-black/50 w-full h-full text-white p-4 flex justify-between">
@@ -37,7 +51,7 @@ const FeaLocations = () => {
                 <span>{data.proj}</span>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
       <Link to={"/compounds"} className="mt-14 text-[#019DFB]">

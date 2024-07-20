@@ -46,7 +46,9 @@ const ForSale = () => {
 
   return (
     <div className="lg:max-w-[1110px] mx-auto px-[15px] my-[30px]">
-      <h1 className="font-bold text-3xl mb-16">100 Properties for salse</h1>
+      <h1 className="font-bold text-3xl mb-16">
+        {Property?.data?.total} Properties for sale
+      </h1>
       <div className="ml-3">
         <Link to={"/"} className="text-[#019DFC] hover:text-black">
           Home

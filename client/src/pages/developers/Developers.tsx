@@ -26,8 +26,15 @@ const Developers = () => {
     networkMode: "offlineFirst",
   });
 
-  if (isLoading) return "Loading...";
-  if (error) return "An error has occured" + error;
+  let result;
+
+  if (devs) {
+    result = devs;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
 
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
@@ -47,7 +54,7 @@ const Developers = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-[120px] mb-16">
-        {devs?.data?.data.map(({ title, slug, images, _id }: Data) => (
+        {result?.data?.data.map(({ title, slug, images, _id }: Data) => (
           <div
             className="relative h-[250px] flex flex-col items-center"
             key={_id}

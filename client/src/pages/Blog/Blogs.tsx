@@ -19,8 +19,14 @@ const Blogs = () => {
     networkMode: "offlineFirst",
   });
 
-  if (isLoading) return "Loading";
-  if (error) return "An error has occured" + error;
+  let result;
+  if (blogs) {
+    result = blogs;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
 
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
@@ -65,7 +71,7 @@ const Blogs = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 pb-[56px]">
-          {blogs?.data?.data.map((data: any) => (
+          {result?.data?.data.map((data: any) => (
             <div
               key={data._id}
               className="rounded-md overflow-hidden border border-[#DDDDDD] group"

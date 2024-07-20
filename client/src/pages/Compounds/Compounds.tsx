@@ -31,8 +31,15 @@ const Compounds = () => {
     networkMode: "offlineFirst",
   });
 
-  if (isLoading) return "Loading";
-  if (error) return "An error has occured" + error;
+  let result;
+
+  if (data) {
+    result = data;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
 
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
@@ -64,7 +71,10 @@ const Compounds = () => {
           <span className="">Egypt's</span> Compounds - {data?.data?.total}{" "}
           compounds and 5 properties for sale.
         </h1>
-        <ShowCards data={data?.data.data} onProjectChange={onProjectChange} />
+        <ShowCards
+          data={result?.data?.data}
+          onProjectChange={onProjectChange}
+        />
         <PaginationNav
           prevPage={prevPage}
           nextPage={nextPage}

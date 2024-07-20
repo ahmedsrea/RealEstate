@@ -28,8 +28,15 @@ const ForSale = () => {
     setFilter(newFilter);
   };
 
-  if (isLoading) return "Loading";
-  if (error) return "An error has occured" + error;
+  let result;
+
+  if (Property) {
+    result = Property;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
 
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
@@ -56,7 +63,7 @@ const ForSale = () => {
         <div className="w-full">
           <div className="sm:border sm:border-[#DDDDDD] rounded-lg lg:max-w-[730px] md:max-w-[690px] sm:max-w-[510px] w-full mx-auto sm:p-4">
             {Property?.data?.data && Property?.data?.data.length > 0 ? (
-              Property?.data?.data.map((data) => (
+              result?.data?.data.map((data) => (
                 <ForSaleCard {...data} key={data._id} />
               ))
             ) : (

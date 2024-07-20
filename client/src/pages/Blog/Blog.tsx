@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import AboutBlog from "./AboutBlog";
 import { useQuery } from "@tanstack/react-query";
-import NotFound from "../../components/NotFound";
 import axios from "../../api/axios";
 
 const Blog = () => {
@@ -12,8 +11,14 @@ const Blog = () => {
     networkMode: "offlineFirst",
   });
 
-  if (isLoading) return "Loading....";
-  if (error) return <NotFound />;
+  let result;
+  if (data) {
+    result = data;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
 
   const {
     title,
@@ -26,7 +31,7 @@ const Blog = () => {
     del_date,
     markdown,
     createdAt,
-  } = data?.data?.data || {};
+  } = result?.data?.data || {};
 
   if (isLoading) return "Loadding...";
   if (error) return "An error has occured" + error;

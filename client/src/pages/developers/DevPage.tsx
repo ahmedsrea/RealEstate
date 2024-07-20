@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import NotFound from "../../components/NotFound";
 import AboutDev from "./AboutDev";
 import DevProjects from "./DevProjects";
 import axios from "../../api/axios";
@@ -14,10 +13,17 @@ const DevPage = () => {
     networkMode: "offlineFirst",
   });
 
-  if (isLoading) return "Loading....";
-  if (error) return <NotFound />;
+  let result;
 
-  const { images, title } = data?.data?.data || {};
+  if (data) {
+    result = data;
+  } else if (isLoading) {
+    result = "Loading...";
+  } else if (error) {
+    result = "An error has occured" + error;
+  }
+
+  const { images, title } = result?.data?.data || {};
   document.title = `${title}`;
   return (
     <div className="">

@@ -13,7 +13,7 @@ const MobileMenu = () => {
 
       {openMenu && (
         <div
-          className={`flex flex-col items-start p-6 text-[#2D3436] gap-[21px] font-medium text-base absolute top-[65px] left-0 bg-[#F2F2F2] w-[100vw] z-20`}
+          className={`flex flex-col items-start p-6 text-[#2D3436] gap-[21px] font-medium text-base absolute top-[65px] left-0 bg-[#F2F2F2] w-full z-20`}
         >
           <Link to="compounds" className="hover:text-[#019DFB]">
             Egypt's Compounds

@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode, FC } from "react";
 
 interface SearchData {
-  [key: string]: any;
+  [key: string]: string;
 }
 
 interface SearchContextProps {

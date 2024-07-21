@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
+
 const Search = () => {
   const [search, setSearch] = useState("");
+  const searchContext = useContext(SearchContext);
+  const { setSearchData } = searchContext;
   const navigate = useNavigate();
 
-  function handleSubmit() {
-    navigate(`/search?title=${search}`);
+  function handleSubmit(e) {
+    e.preventDefault();
+    setSearchData({ title: `${search}` });
+    console.log({ title: `${search}` });
+    navigate("/compounds");
   }
+
   return (
     <form
       onSubmit={handleSubmit}

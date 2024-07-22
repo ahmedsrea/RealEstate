@@ -60,11 +60,12 @@ const ShowCards = ({ data, onProjectChange }: any) => {
 
         {card === "properties" && data && <PropertyCards data={data} />}
 
-        {!data && (
-          <p className="text-xl font-extralight pt-16 px-5">
-            There are no compounds matching these criteria.
-          </p>
-        )}
+        {!data ||
+          (data.length < 1 && (
+            <p className="text-xl font-extralight pt-16 px-5">
+              There are no compounds matching these criteria.
+            </p>
+          ))}
       </div>
     </div>
   );

@@ -11,8 +11,7 @@ const Search = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setSearchData({ title: `${search}` });
-    console.log({ title: `${search}` });
+    setSearchData({ proj_name: `${search}` });
     navigate("/compounds");
   }
 

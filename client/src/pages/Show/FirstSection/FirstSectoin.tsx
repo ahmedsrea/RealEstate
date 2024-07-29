@@ -72,7 +72,7 @@ const FirstSectoin = ({
           <h3 className="mb-2 lg:text-base text-sm">
             <span className="font-bold text-[#6F818A] mr-1">Developed by:</span>{" "}
             <Link
-              to={`/developers/${dev_by}`}
+              to={`/developers/${dev_by?.toLowerCase().replace(/\s+/g, "-")}`}
               className="text-[#019DFC] hover:text-[#0266a4]"
             >
               {dev_by}

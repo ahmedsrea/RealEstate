@@ -16,6 +16,7 @@ exports.getAllCompounds = catchAsync(async (req, res, next) => {
     "min_price",
     "max_price",
     "page",
+    "per_page",
   ];
   excludedFields.forEach((el) => delete queryObj[el]);
 
@@ -40,9 +41,7 @@ exports.getAllCompounds = catchAsync(async (req, res, next) => {
   const perPage = req.query.per_page * 1 || 10;
   const totalPages = Math.ceil(total / perPage);
 
-  query = CompoundsModel.find()
-    .skip((page - 1) * perPage)
-    .limit(perPage);
+  query = query.skip((page - 1) * perPage).limit(perPage);
 
   const compounds = await query;
 

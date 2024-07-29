@@ -31,7 +31,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .btn-primary {
   color: white;
-  padding: 4px 16px;
+  padding: 4px 14px;
   border-radius: 2px;
   margin: 0 4px;
   font-size: 14px;

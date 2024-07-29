@@ -20,7 +20,7 @@ const Details = ({
         <h1 className="text-center text-2xl font-bold">Details</h1>
         <div className="flex flex-row mb-4 gap-1">
           <p className="">
-            <strong className="">Project Name:</strong>
+            <strong className="">Project Name: </strong>
             {proj_name}.
           </p>
         </div>

@@ -40,7 +40,7 @@ const FirstSectoin = ({
   price,
   furnishing,
 }: DataType) => {
-  document.title = title;
+  document.title = title as string;
   const image = images?.split(",");
 
   return (

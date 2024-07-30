@@ -21,9 +21,10 @@ This project is a practice on MongoDB, ExpressJS, and React, inspired by [reales
 
 ## Known Issues
 
-A list of things not working right now:
+The following issues are currently present:
 
-1. There's a lot of Typescript errors not resolved.
+1. Numerous unresolved TypeScript errors.
+2. The filtration functionality on the home page and compound page requires optimization in both the frontend and backend to work at full capacity.
 
 ## Running Locally
 

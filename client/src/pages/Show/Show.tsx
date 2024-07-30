@@ -13,9 +13,8 @@ const Show = () => {
   const { slug } = useParams();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["show"],
+    queryKey: ["show", { slug }],
     queryFn: () => axios.get(`/compounds/${slug}`),
-    networkMode: "offlineFirst",
   });
 
   if (isLoading) return "Loading....";
